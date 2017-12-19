@@ -1,6 +1,9 @@
 $ = require('jquery');
 require('./index.scss');
+require('bootstrap');
 require('bootstrap-fileinput');
+
+const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
   ctx.fillStyle = '#f0f0f0';
@@ -38,13 +41,46 @@ window.onload = () => {
       msgPlaceholder: '画像ファイル'
     });
     f.on('fileimageloaded', (event) => {
-      const x = v % 4;
-      const y = Math.floor(v / 4);
-      const imgw = canvas.width / 4;
-      const imgh = canvas.height / 3;
-      console.log(event);
-      console.log(f);
-    })
+      if (typeof(event.currentTarget.files[0]) !== 'undefined') {
+        const file = event.currentTarget.files[0];
+        const img = new Image();
+        img.onload = () => {
+          const width = file.width = img.width;
+          const height = file.height = img.height;
+          const x = v % 4;
+          const y = Math.floor(v / 4);
+          const imgw = canvas.width / 4;
+          const imgh = canvas.height / 3;
+          ctx.drawImage(img, 0, 0);
+          if (width > height) {
+            ctx.drawImage(
+              img,
+              (width - height) / 2 | 0,
+              0,
+              height,
+              height,
+              x * imgw,
+              y * imgh,
+              (x + 1) * imgw - 1,
+              (y + 1) * imgh - 1
+            );
+          } else {
+            ctx.drawImage(
+              img,
+              0,
+              (height - width) / 2 | 0,
+              width,
+              width,
+              x * imgw,
+              y * imgh,
+              (x + 1) * imgw - 1,
+              (y + 1) * imgh - 1
+            );
+          }
+        };
+        img.src = _URL.createObjectURL(file);
+      }
+    });
     return f;
   });
   $('#next-1').click(() => {
