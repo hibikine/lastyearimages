@@ -2,7 +2,9 @@ $ = require('jquery');
 require('./index.scss');
 require('bootstrap');
 require('bootstrap-fileinput');
+const OAuth = require('oauth');
 
+const OAuth2 = OAuth.OAuth2;
 const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
@@ -41,18 +43,23 @@ window.onload = () => {
       msgPlaceholder: '画像ファイル'
     });
     f.on('fileimageloaded', (event) => {
-      if (typeof(event.currentTarget.files[0]) !== 'undefined') {
+      if (typeof (event.currentTarget.files[0]) !== 'undefined') {
         const file = event.currentTarget.files[0];
         const img = new Image();
         img.onload = () => {
           const width = file.width = img.width;
           const height = file.height = img.height;
           const x = v % 4;
-          const y = Math.floor(v / 4);
-          const imgw = canvas.width / 4;
-          const imgh = canvas.height / 3;
-          ctx.drawImage(img, 0, 0);
+          const y = v / 4 | 0;
+          console.log(canvas);
+          const imgw = canvas.get(0).width / 4 | 0;
+          const imgh = canvas.get(0).height / 3 | 0;
+          //ctx.drawImage(img, 0, 0);
           if (width > height) {
+            console.log(width);
+            console.log(height);
+            console.log(imgw);
+            console.log(imgh);
             ctx.drawImage(
               img,
               (width - height) / 2 | 0,
@@ -61,10 +68,11 @@ window.onload = () => {
               height,
               x * imgw,
               y * imgh,
-              (x + 1) * imgw - 1,
-              (y + 1) * imgh - 1
+              imgw,
+              imgh
             );
           } else {
+            console.log("hoge");
             ctx.drawImage(
               img,
               0,
@@ -73,8 +81,8 @@ window.onload = () => {
               width,
               x * imgw,
               y * imgh,
-              (x + 1) * imgw - 1,
-              (y + 1) * imgh - 1
+              imgw,
+              imgh
             );
           }
         };
@@ -102,6 +110,22 @@ window.onload = () => {
     $('body, html').scrollTop(0);
     $('#page-2').hide();
     $('#page-3').show();
+    const oauth2 = new OAuth2(
+      '',
+      '',
+      'https://api.twitter.com/',
+      null,
+      'oauth2/token',
+      null);
+    oauth2.getOAuthAccessToken(
+      '', {
+        'grant_type': 'client_credentials'
+      },
+      (e, access_token, refresh_token, results) => {
+        console.log('bearer: ', access_token);
+        done();
+      }
+    );
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
@@ -110,5 +134,9 @@ window.onload = () => {
   $('#back-2').click(() => {
     $('#page-3').hide();
     $('#page-2').show();
+  });
+  const submitForm = $('#submit-form');
+  submitForm.submit(() => {
+    submitForm.
   });
 };
