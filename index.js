@@ -2,9 +2,7 @@ $ = require('jquery');
 require('./index.scss');
 require('bootstrap');
 require('bootstrap-fileinput');
-const OAuth = require('oauth');
 
-const OAuth2 = OAuth.OAuth2;
 const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
@@ -110,22 +108,7 @@ window.onload = () => {
     $('body, html').scrollTop(0);
     $('#page-2').hide();
     $('#page-3').show();
-    const oauth2 = new OAuth2(
-      '',
-      '',
-      'https://api.twitter.com/',
-      null,
-      'oauth2/token',
-      null);
-    oauth2.getOAuthAccessToken(
-      '', {
-        'grant_type': 'client_credentials'
-      },
-      (e, access_token, refresh_token, results) => {
-        console.log('bearer: ', access_token);
-        done();
-      }
-    );
+    console.log(canvas.get(0).toDataURL());
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
@@ -137,6 +120,10 @@ window.onload = () => {
   });
   const submitForm = $('#submit-form');
   submitForm.submit(() => {
-    submitForm.
+    submitForm.append($('<input>').attr({
+      type: 'hidden',
+      name: 'canvas',
+      value: canvas.get(0).toDataURL(),
+    }));
   });
 };
