@@ -16,6 +16,7 @@ $fp = fopen($new_file_name,'w');
 fwrite($fp,$canvas);
 fclose($fp);
 
+$_SESSION['name'] = $_POST['name'];
 $_SESSION['tweet-text'] = $_POST['tweet-text'];
 $reqtkn = $con->oauth("oauth/request_token", [
     "oauth_callback" => "http://localhost:8000/callback.php"

@@ -29,10 +29,6 @@
           </div>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </nav>
   <main role="main" class="container">
@@ -46,18 +42,24 @@
     </div>
     <div id="page-2">
       <h1>プレビュー</h1>
+      <p class="col-12 name-container">名前:<input type="text" id="name-text" /></p>
       <div class="container canvas-wrapper">
-        <canvas class="col-12" id="canvas-1" width="1200" height="900" class="center-block"></canvas>
+        <canvas class="col-12" id="canvas-1" width="1210" height="1156" class="center-block"></canvas>
       </div>
-      <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
       <button id="next-2" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ</button>
+      <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
     </div>
-    <div id="page-3">
+    <div id="page-3" class="">
       <form id="submit-form" action="http://localhost:8000/server.php" method="post">
-        <div>
-          [名前]のお絵かき1年録！ #お絵かき1年録ジェネレーター
-          <input id="tweet-text" type="text" name="tweet-text" /> https://hibikine.me/oekaki/
+    <div class="row">
+        <div class="tweet-sample col-sm-12">
+          <p>[名前]のお絵かき1年録！ #お絵かき1年録ジェネレーター</p>
+          <input id="tweet-text" type="text" name="tweet-text" />
+          <p>https://hibikine.me/oekaki/</p>
+          <p><img id="sample-image" alt="サンプル画像" /></p>
         </div>
+        <p>右クリックで保存するか、Twitter認証で投稿できます。</p>
+     </div>
         <button id="send" type="submit" class="next-button btn btn-success btn-lg btn-block">Twitter認証</button>
       </form>
       <button id="back-2" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>

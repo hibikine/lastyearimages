@@ -3,18 +3,81 @@ require('./index.scss');
 require('bootstrap');
 require('bootstrap-fileinput');
 
+
+const canvas = $('#canvas-1');
+const headerHeight = 100;
+const monthHeaderHeight = 50;
+const lineWidth = 2;
+const canvasImageWidth = canvas.get(0).width - lineWidth * 5;
+const canvasImageHeight = canvas.get(0).height - headerHeight - monthHeaderHeight * 3 - lineWidth * 3;
+const imgw = (canvasImageWidth / 4 | 0);
+const imgh = (canvasImageHeight / 3 | 0);
+
+const canvasBackground = '#6d6d6d';
+const textColor = '#f7f7f7';
+const titleBackground = '#f0f0f0';
+const titleTextColor = '#494949';
+const fontfamilies = "游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif";
+const fontweight = 800;
+const fontSizeMonth = 40;
+const fontSizeTitle = 80;
+const monthTextStyle = `${fontweight} ${fontSizeMonth}px ${fontfamilies}`;
+const titleTextStyle = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
+
+
 const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
-  ctx.fillStyle = '#f0f0f0';
-  ctx.fillRect(0, 0, 800, 600);
+  ctx.fillStyle = canvasBackground;
+  ctx.fillRect(0, 0, canvas.get(0).width, canvas.get(0).height);
+  ctx.fillStyle = textColor;
+  ctx.font = monthTextStyle;
+  ctx.textAlign = 'center';
+  Array(12).fill(0).map((i, v) => {
+    const x = calcX(v);
+    const y = calcY(v);
+    const xPos = lineWidth + imgw / 2 + (imgw + lineWidth) * x;
+    const yPos = headerHeight + monthHeaderHeight + (imgh + lineWidth + monthHeaderHeight) * y - fontSizeMonth / 4;
+    ctx.fillText(`${v+1}月`, xPos, yPos);
+    ctx.fillRect(calcBlockX(x), calcBlockY(y), imgw, imgh);
+  });
+  drawText(ctx);
+}
+
+function drawText(ctx) {
+  ctx.fillStyle = titleBackground;
+  ctx.fillRect(0, 0, canvas.get(0).width, headerHeight);
+  ctx.fillStyle = titleTextColor;
+  ctx.font = titleTextStyle;
+  let drawtext = '';
+  const name = $('#name-text').get(0).value;
+  if (name !== '') {
+    drawtext = `${name}のお絵かき1年録`;
+  } else {
+    drawtext = 'お絵かき1年録';
+  }
+  ctx.fillText(drawtext, canvas.get(0).width / 2, headerHeight - fontSizeTitle / 4, canvas.get(0).width);
+}
+
+function calcX(v){
+  return v % 4;
+}
+
+function calcY(v) {
+  return v / 4 | 0;
+}
+
+function calcBlockX(x) {
+  return x * imgw + lineWidth + lineWidth * x;
+}
+function calcBlockY(y) {
+  return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
 }
 
 window.onload = () => {
   $('#page-2').hide();
   $('#page-3').hide();
 
-  const canvas = $('#canvas-1');
   const ctx = canvas.get(0).getContext('2d');
   initCanvas(ctx);
 
@@ -47,11 +110,11 @@ window.onload = () => {
         img.onload = () => {
           const width = file.width = img.width;
           const height = file.height = img.height;
-          const x = v % 4;
-          const y = v / 4 | 0;
-          const imgw = canvas.get(0).width / 4 | 0;
-          const imgh = canvas.get(0).height / 3 | 0;
+          const x = calcX(v);
+          const y = calcY(v);
           //ctx.drawImage(img, 0, 0);
+          const xPos = calcBlockX(x);
+          const yPos = calcBlockY(y);
           if (width > height) {
             ctx.drawImage(
               img,
@@ -59,8 +122,8 @@ window.onload = () => {
               0,
               height,
               height,
-              x * imgw,
-              y * imgh,
+              xPos,
+              yPos,
               imgw,
               imgh
             );
@@ -71,8 +134,8 @@ window.onload = () => {
               (height - width) / 2 | 0,
               width,
               width,
-              x * imgw,
-              y * imgh,
+              xPos,
+              yPos,
               imgw,
               imgh
             );
@@ -102,6 +165,7 @@ window.onload = () => {
     $('body, html').scrollTop(0);
     $('#page-2').hide();
     $('#page-3').show();
+    $('#sample-image').get(0).src = canvas.get(0).toDataURL();
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
@@ -111,12 +175,20 @@ window.onload = () => {
     $('#page-3').hide();
     $('#page-2').show();
   });
+  $('#name-text').keyup(() => {
+    drawText(ctx);
+  });
   const submitForm = $('#submit-form');
   submitForm.submit(() => {
     submitForm.append($('<input>').attr({
       type: 'hidden',
       name: 'canvas',
       value: canvas.get(0).toDataURL(),
+    }));
+    submitForm.append($('<input>').attr({
+      type: 'hidden',
+      name: 'name',
+      value: $('#name-text').get(0).value,
     }));
   });
 };

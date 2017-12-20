@@ -16,6 +16,12 @@ label {
 .canvas-wrapper {
   max-width: 600px !important; }
 
+#sample-image {
+  width: 400px; }
+
 .likedl {
   width: 100%;
   max-width: 400px; }
+
+.name-container {
+  text-align: center; }
