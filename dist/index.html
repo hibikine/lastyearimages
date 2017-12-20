@@ -42,18 +42,32 @@
     </div>
     <div id="page-2">
       <h1>プレビュー</h1>
+      <p class="col-12 name-container">名前:<input type="text" id="name-text"></p>
       <div class="container canvas-wrapper">
-        <canvas class="col-12" id="canvas-1" width="1200" height="900"></canvas>
+        <canvas class="col-12" id="canvas-1" width="1210" height="1156"></canvas>
       </div>
-      <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
       <button id="next-2" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ</button>
+      <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
     </div>
+<<<<<<< HEAD
     <div id="page-3">
       <form id="submit-form" action="http://localhost:8000/server.php" method="post">
         <div>
           [名前]のお絵かき1年録！ #お絵かき1年録ジェネレーター
           <input id="tweet-text" type="text" name="tweet-text"> https://hibikine.me/oekaki/
+=======
+    <div id="page-3" class="">
+      <form id="submit-form" action="http://localhost:8000/server.php" method="post">
+    <div class="row">
+        <div class="tweet-sample col-sm-12">
+          <p>[名前]のお絵かき1年録！ #お絵かき1年録ジェネレーター</p>
+          <input id="tweet-text" type="text" name="tweet-text">
+          <p>https://hibikine.me/oekaki/</p>
+          <p><img id="sample-image" alt="サンプル画像"></p>
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
         </div>
+        <p>右クリックで保存するか、Twitter認証で投稿できます。</p>
+     </div>
         <button id="send" type="submit" class="next-button btn btn-success btn-lg btn-block">Twitter認証</button>
       </form>
       <button id="back-2" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>

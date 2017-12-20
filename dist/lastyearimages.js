@@ -65,6 +65,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
+<<<<<<< HEAD
 })({12:[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
@@ -135,6 +136,9 @@ module.exports = reloadCSS;
         module.hot.accept(reloadCSS);
       
 },{"_css_loader":11}],10:[function(require,module,exports) {
+=======
+})({11:[function(require,module,exports) {
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 
 // shim for using process in browser
 var process = module.exports = {};
@@ -321,7 +325,11 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+<<<<<<< HEAD
 },{}],7:[function(require,module,exports) {
+=======
+},{}],9:[function(require,module,exports) {
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 var global = (1,eval)("this");
 var process = require("process");
 /*!
@@ -10578,7 +10586,80 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+<<<<<<< HEAD
 },{"process":10}],8:[function(require,module,exports) {
+=======
+},{"process":11}],12:[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error;
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^\)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^\/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+
+},{}],7:[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
+  };
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+};
+
+module.exports = reloadCSS;
+
+},{"./bundle-url":12}],6:[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":7}],10:[function(require,module,exports) {
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 /*!
   * Bootstrap v4.0.0-beta.2 (https://getbootstrap.com)
   * Copyright 2011-2017 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
@@ -14430,7 +14511,7 @@ return exports;
 }({},$,Popper));
 //# sourceMappingURL=bootstrap.js.map
 
-},{}],9:[function(require,module,exports) {
+},{}],8:[function(require,module,exports) {
 /*!
  * bootstrap-fileinput v4.4.6
  * http://plugins.krajee.com/file-input
@@ -18761,24 +18842,94 @@ return exports;
         }
     });
 }));
+<<<<<<< HEAD
 },{"jquery":7}],4:[function(require,module,exports) {
+=======
+},{"jquery":9}],4:[function(require,module,exports) {
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 $ = require('jquery');
 require('./index.scss');
 require('bootstrap');
 require('bootstrap-fileinput');
 
+<<<<<<< HEAD
+=======
+
+const canvas = $('#canvas-1');
+const headerHeight = 100;
+const monthHeaderHeight = 50;
+const lineWidth = 2;
+const canvasImageWidth = canvas.get(0).width - lineWidth * 5;
+const canvasImageHeight = canvas.get(0).height - headerHeight - monthHeaderHeight * 3 - lineWidth * 3;
+const imgw = (canvasImageWidth / 4 | 0);
+const imgh = (canvasImageHeight / 3 | 0);
+
+const canvasBackground = '#6d6d6d';
+const textColor = '#f7f7f7';
+const titleBackground = '#f0f0f0';
+const titleTextColor = '#494949';
+const fontfamilies = "游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif";
+const fontweight = 800;
+const fontSizeMonth = 40;
+const fontSizeTitle = 80;
+const monthTextStyle = `${fontweight} ${fontSizeMonth}px ${fontfamilies}`;
+const titleTextStyle = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
+
+
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
-  ctx.fillStyle = '#f0f0f0';
-  ctx.fillRect(0, 0, 800, 600);
+  ctx.fillStyle = canvasBackground;
+  ctx.fillRect(0, 0, canvas.get(0).width, canvas.get(0).height);
+  ctx.fillStyle = textColor;
+  ctx.font = monthTextStyle;
+  ctx.textAlign = 'center';
+  Array(12).fill(0).map((i, v) => {
+    const x = calcX(v);
+    const y = calcY(v);
+    const xPos = lineWidth + imgw / 2 + (imgw + lineWidth) * x;
+    const yPos = headerHeight + monthHeaderHeight + (imgh + lineWidth + monthHeaderHeight) * y - fontSizeMonth / 4;
+    ctx.fillText(`${v+1}月`, xPos, yPos);
+    ctx.fillRect(calcBlockX(x), calcBlockY(y), imgw, imgh);
+  });
+  drawText(ctx);
+}
+
+function drawText(ctx) {
+  ctx.fillStyle = titleBackground;
+  ctx.fillRect(0, 0, canvas.get(0).width, headerHeight);
+  ctx.fillStyle = titleTextColor;
+  ctx.font = titleTextStyle;
+  let drawtext = '';
+  const name = $('#name-text').get(0).value;
+  if (name !== '') {
+    drawtext = `${name}のお絵かき1年録`;
+  } else {
+    drawtext = 'お絵かき1年録';
+  }
+  ctx.fillText(drawtext, canvas.get(0).width / 2, headerHeight - fontSizeTitle / 4, canvas.get(0).width);
+}
+
+function calcX(v){
+  return v % 4;
+}
+
+function calcY(v) {
+  return v / 4 | 0;
+}
+
+function calcBlockX(x) {
+  return x * imgw + lineWidth + lineWidth * x;
+}
+function calcBlockY(y) {
+  return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
 }
 
 window.onload = () => {
   $('#page-2').hide();
   $('#page-3').hide();
 
-  const canvas = $('#canvas-1');
   const ctx = canvas.get(0).getContext('2d');
   initCanvas(ctx);
 
@@ -18811,11 +18962,11 @@ window.onload = () => {
         img.onload = () => {
           const width = file.width = img.width;
           const height = file.height = img.height;
-          const x = v % 4;
-          const y = v / 4 | 0;
-          const imgw = canvas.get(0).width / 4 | 0;
-          const imgh = canvas.get(0).height / 3 | 0;
+          const x = calcX(v);
+          const y = calcY(v);
           //ctx.drawImage(img, 0, 0);
+          const xPos = calcBlockX(x);
+          const yPos = calcBlockY(y);
           if (width > height) {
             ctx.drawImage(
               img,
@@ -18823,8 +18974,8 @@ window.onload = () => {
               0,
               height,
               height,
-              x * imgw,
-              y * imgh,
+              xPos,
+              yPos,
               imgw,
               imgh
             );
@@ -18835,8 +18986,8 @@ window.onload = () => {
               (height - width) / 2 | 0,
               width,
               width,
-              x * imgw,
-              y * imgh,
+              xPos,
+              yPos,
               imgw,
               imgh
             );
@@ -18865,7 +19016,12 @@ window.onload = () => {
   $('#next-2').click(() => {
     $('body, html').scrollTop(0);
     $('#page-2').hide();
+<<<<<<< HEAD
     $('#page-3').show();
+=======
+    $('#page-3').show();
+    $('#sample-image').get(0).src = canvas.get(0).toDataURL();
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
@@ -18875,17 +19031,32 @@ window.onload = () => {
     $('#page-3').hide();
     $('#page-2').show();
   });
+  $('#name-text').keyup(() => {
+    drawText(ctx);
+  });
   const submitForm = $('#submit-form');
   submitForm.submit(() => {
     submitForm.append($('<input>').attr({
       type: 'hidden',
       name: 'canvas',
       value: canvas.get(0).toDataURL(),
+<<<<<<< HEAD
+=======
+    }));
+    submitForm.append($('<input>').attr({
+      type: 'hidden',
+      name: 'name',
+      value: $('#name-text').get(0).value,
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
     }));
   });
 };
 
+<<<<<<< HEAD
 },{"./index.scss":6,"jquery":7,"bootstrap":8,"bootstrap-fileinput":9}],0:[function(require,module,exports) {
+=======
+},{"jquery":9,"./index.scss":6,"bootstrap":10,"bootstrap-fileinput":8}],0:[function(require,module,exports) {
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -18903,7 +19074,11 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
+<<<<<<< HEAD
   var ws = new WebSocket('ws://localhost:52700/');
+=======
+  var ws = new WebSocket('ws://localhost:50170/');
+>>>>>>> bb5f5002d0716b33d58ff2f220aa567f4715f981
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 

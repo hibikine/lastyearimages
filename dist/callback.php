@@ -32,8 +32,15 @@ if($_SESSION['oauth_token'] === $_GET['oauth_token'] and $_GET['oauth_verifier']
 		return 1;
 	}
     $medid = $usrcon->upload("media/upload", ["media" => $_SESSION['image']]);
+    if (key_exists('name', $_SESSION)) {
+        $name = $_SESSION['name'];
+    }
+    $tweet_text = '';
+    if ($_SESSION['tweet-text'] !== ''){
+        $tweet_text = $_SESSION['tweet-text'] . '\n';
+    }
     $params = [
-    'status' => $name . "のお絵かき1年録！ " . $_SESSION['tweet-text'] . " #お絵かき1年録ジェネレーター https://hibikine.me/oekaki/",
+    'status' => $name . "のお絵かき1年録！\n" . $_SESSION['tweet-text'] . "#お絵かき1年録ジェネレーター https://hibikine.me/oekaki/",
     'media_ids' => $medid->media_id_string,
     ];
     $result = $usrcon->post('statuses/update', $params);
