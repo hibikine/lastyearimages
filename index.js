@@ -51,15 +51,10 @@ window.onload = () => {
           const height = file.height = img.height;
           const x = v % 4;
           const y = v / 4 | 0;
-          console.log(canvas);
           const imgw = canvas.get(0).width / 4 | 0;
           const imgh = canvas.get(0).height / 3 | 0;
           //ctx.drawImage(img, 0, 0);
           if (width > height) {
-            console.log(width);
-            console.log(height);
-            console.log(imgw);
-            console.log(imgh);
             ctx.drawImage(
               img,
               (width - height) / 2 | 0,
@@ -72,7 +67,6 @@ window.onload = () => {
               imgh
             );
           } else {
-            console.log("hoge");
             ctx.drawImage(
               img,
               0,
@@ -122,7 +116,6 @@ window.onload = () => {
         'grant_type': 'client_credentials'
       },
       (e, access_token, refresh_token, results) => {
-        console.log('bearer: ', access_token);
         done();
       }
     );
@@ -137,6 +130,6 @@ window.onload = () => {
   });
   const submitForm = $('#submit-form');
   submitForm.submit(() => {
-    submitForm.
+    const image_uri = canvas.toDataURL("image/png");
   });
 };
