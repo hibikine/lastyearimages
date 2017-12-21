@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html --out-dir oekaki",
+    "build": "parcel build index.html --out-dir oekaki"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
     "node-sass": "^4.7.2",
     "parcel-bundler": "^1.2.0"
   },
