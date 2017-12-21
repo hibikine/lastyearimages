@@ -43,6 +43,7 @@ if($_SESSION['oauth_token'] === $_GET['oauth_token'] and $_GET['oauth_verifier']
     if ($_SESSION['tweet-text'] !== ''){
         $tweet_text = $_SESSION['tweet-text'] . '\n';
     }
+	
     $params = [
     'status' => $name . "のお絵かき1年録！\n" . $_SESSION['tweet-text'] . "\n#お絵かき1年録ジェネレーター https://hibikine.me/oekaki/",
     'media_ids' => $medid->media_id_string,

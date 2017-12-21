@@ -183,7 +183,7 @@ window.onload = () => {
     submitForm.append($('<input>').attr({
       type: 'hidden',
       name: 'canvas',
-      value: canvas.get(0).toDataURL(),
+      value: canvas.get(0).toDataURL('image/jpeg'),
     }));
     submitForm.append($('<input>').attr({
       type: 'hidden',

@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --out-dir oekaki",
-    "build": "parcel build index.html --out-dir oekaki"
+    "build": "parcel build index.html --out-dir oekaki",
+    "watch": "parcel watch index.html --out-dir oekaki"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",

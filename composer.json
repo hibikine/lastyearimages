@@ -6,6 +6,9 @@
             "email": "goodsmile314159@gmail.com"
         }
     ],
+	"config": {
+      "vendor-dir": "oekaki/vendor"
+    },
     "require": {
         "Abraham/TwitterOAuth": "^0.7.4"
     }

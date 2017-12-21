@@ -10,7 +10,7 @@ $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
 $canvas = base64_decode($canvas);
 $con = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 
-$new_file_name=date("Ymd-His")."-".ceil(microtime(true)).".png";
+$new_file_name=date("Ymd-His")."-".ceil(microtime(true)).".jpg";
 $_SESSION['image'] = $new_file_name;
 $fp = fopen($new_file_name,'w');
 fwrite($fp,$canvas);
