@@ -1,15 +1,26 @@
 {
-    "name": "hibikinekage/lastyearpserver",
-    "authors": [
-        {
-            "name": "Hibikine Kage",
-            "email": "goodsmile314159@gmail.com"
-        }
-    ],
-	"config": {
-      "vendor-dir": "oekaki/vendor"
-    },
-    "require": {
-        "Abraham/TwitterOAuth": "^0.7.4"
+  "name": "hibikinekage/lastyearpserver",
+  "authors": [
+    {
+      "name": "Hibikine Kage",
+      "email": "goodsmile314159@gmail.com"
     }
+  ],
+  "config": {
+    "vendor-dir": "oekaki/vendor"
+  },
+  "require": {
+    "Abraham/TwitterOAuth": "^0.7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
+  "scripts": {
+    "build": [
+      "cp app/* oekaki/"
+    ],
+    "test": [
+      "phpunit"
+    ]
+  }
 }
