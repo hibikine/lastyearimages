@@ -73,6 +73,13 @@ function calcBlockY(y) {
   return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
 }
 
+function setYourName() {
+  const name = $('#name-text').val();
+  if (name !== '') {
+    const yourNameWrapper = $('#your-name').html(name);
+  }
+}
+
 window.onload = () => {
   $('#page-2').hide();
   $('#page-3').hide();
