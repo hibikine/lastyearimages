@@ -1,15 +1,17 @@
-$ = require('jquery');
-require('../index.scss');
-require('bootstrap');
-require('bootstrap-fileinput');
+import $ from 'jquery';
+import 'bootstrap';
+import 'bootstrap-fileinput';
 
+import { calcX, calcY } from './utilities';
+import '../index.scss';
 
 const canvas = $('#canvas-1');
 const headerHeight = 100;
 const monthHeaderHeight = 50;
 const lineWidth = 2;
 const canvasImageWidth = canvas.get(0).width - lineWidth * 5;
-const canvasImageHeight = canvas.get(0).height - headerHeight - monthHeaderHeight * 3 - lineWidth * 3;
+const canvasImageHeight =
+      canvas.get(0).height - headerHeight - monthHeaderHeight * 3 - lineWidth * 3;
 const imgw = (canvasImageWidth / 4 | 0);
 const imgh = (canvasImageHeight / 3 | 0);
 
@@ -26,21 +28,12 @@ const titleTextStyle = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
 
 const _URL = window.URL || window.webkitURL;
 
-function initCanvas(ctx) {
-  ctx.fillStyle = canvasBackground;
-  ctx.fillRect(0, 0, canvas.get(0).width, canvas.get(0).height);
-  ctx.fillStyle = textColor;
-  ctx.font = monthTextStyle;
-  ctx.textAlign = 'center';
-  Array(12).fill(0).map((i, v) => {
-    const x = calcX(v);
-    const y = calcY(v);
-    const xPos = lineWidth + imgw / 2 + (imgw + lineWidth) * x;
-    const yPos = headerHeight + monthHeaderHeight + (imgh + lineWidth + monthHeaderHeight) * y - fontSizeMonth / 4;
-    ctx.fillText(`${v+1}月`, xPos, yPos);
-    ctx.fillRect(calcBlockX(x), calcBlockY(y), imgw, imgh);
-  });
-  drawText(ctx);
+
+function calcBlockX(x) {
+  return x * imgw + lineWidth + lineWidth * x;
+}
+function calcBlockY(y) {
+  return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
 }
 
 function drawText(ctx) {
@@ -55,28 +48,38 @@ function drawText(ctx) {
   } else {
     drawtext = 'お絵かき1年録';
   }
-  ctx.fillText(drawtext, canvas.get(0).width / 2, headerHeight - fontSizeTitle / 4, canvas.get(0).width);
+  ctx.fillText(
+    drawtext, canvas.get(0).width / 2, headerHeight - fontSizeTitle / 4,
+    canvas.get(0).width,
+  );
 }
 
-function calcX(v){
-  return v % 4;
-}
 
-function calcY(v) {
-  return v / 4 | 0;
-}
-
-function calcBlockX(x) {
-  return x * imgw + lineWidth + lineWidth * x;
-}
-function calcBlockY(y) {
-  return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
+function initCanvas(ctx) {
+  ctx.fillStyle = canvasBackground;
+  ctx.fillRect(0, 0, canvas.get(0).width, canvas.get(0).height);
+  ctx.fillStyle = textColor;
+  ctx.font = monthTextStyle;
+  ctx.textAlign = 'center';
+  Array(12).fill(0).map((i, v) => {
+    const x = calcX(v);
+    const y = calcY(v);
+    const xPos = lineWidth + imgw / 2 + (imgw + lineWidth) * x;
+    const yPos =
+          (headerHeight + monthHeaderHeight)
+    + (imgh + lineWidth + monthHeaderHeight) * y
+    - fontSizeMonth / 4;
+    ctx.fillText(`${v + 1}月`, xPos, yPos);
+    ctx.fillRect(calcBlockX(x), calcBlockY(y), imgw, imgh);
+    return v;
+  });
+  drawText(ctx);
 }
 
 function setYourName() {
   const name = $('#name-text').val();
   if (name !== '') {
-    const yourNameWrapper = $('#your-name').html(name);
+    $('#your-name').html(name);
   }
 }
 
@@ -88,14 +91,14 @@ window.onload = () => {
   initCanvas(ctx);
 
   const form = $('#upload-form');
-  const files = Array(12).fill(0).map((i, v) => {
+  Array(12).fill(0).map((i, v) => {
     const p = $('<p></p>');
 
     const inputId = `image-${v}`;
     const f = $(`<input id="${inputId}" type="file" />`);
     f.change = () => {};
 
-    const l = $(`<label for="${inputId}">${v+1}月</label>`);
+    const l = $(`<label for="${inputId}">${v + 1}月</label>`);
 
     form.append(p);
     p.append(l);
@@ -107,7 +110,7 @@ window.onload = () => {
       fileSingle: '',
       msgZoomTitle: '拡大する',
       msgZoomModalHeading: '詳細プレビュー',
-      msgPlaceholder: '画像ファイル'
+      msgPlaceholder: '画像ファイル',
     });
     f.on('fileimageloaded', (event) => {
       if (typeof (event.currentTarget.files[0]) !== 'undefined') {
@@ -130,7 +133,7 @@ window.onload = () => {
               xPos,
               yPos,
               imgw,
-              imgh
+              imgh,
             );
           } else {
             ctx.drawImage(
@@ -142,7 +145,7 @@ window.onload = () => {
               xPos,
               yPos,
               imgw,
-              imgh
+              imgh,
             );
           }
         };
@@ -161,6 +164,7 @@ window.onload = () => {
     $('#page-2').hide();
     $('#page-3').show();
     $('#sample-image').get(0).src = canvas.get(0).toDataURL();
+    setYourName();
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
