@@ -4,6 +4,16 @@ import { drawImageToCanvas, drawText } from './canvas';
 
 const _URL = window.URL || window.webkitURL;
 
+const formConfig = {
+  previewFileType: 'image',
+  showUpload: false,
+  maxFileCount: 1,
+  fileSingle: '',
+  msgZoomTitle: '拡大する',
+  msgZoomModalHeading: '詳細プレビュー',
+  msgPlaceholder: '画像ファイル',
+};
+
 export function setYourName() {
   const name = $('#name-text').val();
   if (name !== '') {
@@ -30,6 +40,7 @@ export function initSubmitForm(canvas) {
       name: 'name',
       value: $('#name-text').get(0).value,
     }));
+    gtag('event', 'submit');
   });
 }
 
@@ -47,15 +58,7 @@ export function createUploadForm(ctx) {
     form.append(p);
     p.append(l);
     p.append(f);
-    f.fileinput({
-      previewFileType: 'image',
-      showUpload: false,
-      maxFileCount: 1,
-      fileSingle: '',
-      msgZoomTitle: '拡大する',
-      msgZoomModalHeading: '詳細プレビュー',
-      msgPlaceholder: '画像ファイル',
-    });
+    f.fileinput(formConfig);
     f.on('fileimageloaded', (event) => {
       if (typeof (event.currentTarget.files[0]) !== 'undefined') {
         const file = event.currentTarget.files[0];

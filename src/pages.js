@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import { setYourName } from './form';
 
-export function gtagPageMove(pageNo, moveType) {
-  gtag('page', 'move', {
+function gtagPageMove(pageNo, moveType) {
+  gtag('event', moveType, {
+    event_category: 'page_move',
     page_no: pageNo,
     move_type: moveType,
   });
