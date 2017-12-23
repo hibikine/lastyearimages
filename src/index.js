@@ -24,7 +24,6 @@ const fontSizeTitle = 80;
 const monthTextStyle = `${fontweight} ${fontSizeMonth}px ${fontfamilies}`;
 const titleTextStyle = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
 
-
 const _URL = window.URL || window.webkitURL;
 
 function initCanvas(ctx) {
@@ -112,7 +111,6 @@ window.onload = () => {
           const height = file.height = img.height;
           const x = calcX(v);
           const y = calcY(v);
-          //ctx.drawImage(img, 0, 0);
           const xPos = calcBlockX(x);
           const yPos = calcBlockY(y);
           if (width > height) {
@@ -150,16 +148,6 @@ window.onload = () => {
     $('body, html').scrollTop(0);
     $('#page-1').hide();
     $('#page-2').show();
-    /*imgs.map((i, v) => {
-      if (typeof(i) === undefined) {
-        return;
-      }
-      const xPos = v%4;
-      const yPos = Math.floor(v/4);
-      const imgWidth = canvas.width / 4;
-      const imgHeight = canvas.height / 3;
-      ctx.drawImage(i, xPos * imgWidth, yPos * imgHeight, );
-    });*/
   });
   $('#next-2').click(() => {
     $('body, html').scrollTop(0);
@@ -192,3 +180,73 @@ window.onload = () => {
     }));
   });
 };
+=======
+          if (width > height) {
+            ctx.drawImage(
+              img,
+              (width - height) / 2 | 0,
+              0,
+              height,
+              height,
+              xPos,
+              yPos,
+              imgw,
+              imgh
+            );
+          } else {
+            ctx.drawImage(
+              img,
+              0,
+              (height - width) / 2 | 0,
+              width,
+              width,
+              xPos,
+              yPos,
+              imgw,
+              imgh
+            );
+          }
+        };
+        img.src = _URL.createObjectURL(file);
+      }
+    });
+    return f;
+  });
+  $('#next-1').click(() => {
+    $('body, html').scrollTop(0);
+    $('#page-1').hide();
+    $('#page-2').show();
+  });
+  $('#next-2').click(() => {
+    $('body, html').scrollTop(0);
+    $('#page-2').hide();
+    $('#page-3').show();
+    $('#sample-image').get(0).src = canvas.get(0).toDataURL();
+    setYourName();
+  });
+  $('#back-1').click(() => {
+    $('#page-2').hide();
+    $('#page-1').show();
+  });
+  $('#back-2').click(() => {
+    $('#page-3').hide();
+    $('#page-2').show();
+  });
+  $('#name-text').keyup(() => {
+    drawText(ctx);
+  });
+  const submitForm = $('#submit-form');
+  submitForm.submit(() => {
+    submitForm.append($('<input>').attr({
+      type: 'hidden',
+      name: 'canvas',
+      value: canvas.get(0).toDataURL('image/jpeg'),
+    }));
+    submitForm.append($('<input>').attr({
+      type: 'hidden',
+      name: 'name',
+      value: $('#name-text').get(0).value,
+    }));
+  });
+};
+>>>>>>> master:index.js

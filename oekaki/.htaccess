@@ -1,0 +1,3 @@
+<Files ~ "^consts\.php$">
+deny from all
+</Files>
