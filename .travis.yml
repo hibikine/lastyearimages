@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 7.1
+
+cache: yarn
+  
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --prefer-source
+
+script:
+  - mkdir -p build/logs
+  - phpunit --coverage-clover build/logs/clover.xml --configuration tests/phpunit.xml tests
+
+after_script:
+  - php vendor/bin/coveralls -v
