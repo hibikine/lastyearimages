@@ -2,16 +2,18 @@
 <html lang="en">
 
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42863170-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42863170-8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-42863170-8');
-</script>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-42863170-8');
 
+  </script>
   <meta charset="UTF-8">
   <title>お絵かき1年録ジェネレーター</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -61,23 +63,22 @@
     <div id="page-2">
       <h1>プレビュー</h1>
       <p class="col-12 name-container">名前:<input type="text" id="name-text" /></p>
-      <div class="container canvas-wrapper">
-          <canvas class="col-12 center-block" id="canvas-1" width="1210" height="1156"></canvas>
+      <div id="canvas-wrapper" class="container canvas-wrapper">
       </div>
       <button id="next-2" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ</button>
       <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
     </div>
     <div id="page-3">
       <form id="submit-form" action="./server.php" method="post">
-    <div class="row">
-        <div class="tweet-sample col-sm-12">
+        <div class="row">
+          <div class="tweet-sample col-sm-12">
             <p><span id="your-name">[名前]</span>のお絵かき1年録！ #お絵かき1年録ジェネレーター</p>
-          <p>コメント:<input id="tweet-text" type="text" name="tweet-text" /></p>
-          <p>https://hibikine.me/oekaki/</p>
-          <p><img id="sample-image" alt="サンプル画像" /></p>
+            <p>コメント:<input id="tweet-text" type="text" name="tweet-text" /></p>
+            <p>https://hibikine.me/oekaki/</p>
+            <p><img id="sample-image" alt="サンプル画像" /></p>
+          </div>
+          <p>右クリックで保存するか、Twitter認証で投稿できます。</p>
         </div>
-        <p>右クリックで保存するか、Twitter認証で投稿できます。</p>
-     </div>
         <button id="send" type="submit" class="next-button btn btn-success btn-lg btn-block">Twitter認証</button>
       </form>
       <button id="back-2" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>

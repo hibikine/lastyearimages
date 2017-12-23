@@ -11,5 +11,6 @@ module.exports = {
     "window": true,
     "document": true,
     "Image": true,
+    "gtag": true,
   }
 }
