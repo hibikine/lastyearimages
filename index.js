@@ -59,7 +59,14 @@ function drawText(ctx) {
   ctx.fillText(drawtext, canvas.get(0).width / 2, headerHeight - fontSizeTitle / 4, canvas.get(0).width);
 }
 
-function calcX(v){
+function setYourName() {
+  const name = $('#name-text').val();
+  if (name !== '') {
+    const yourNameWrapper = $('#your-name').html(name);
+  }
+}
+
+function calcX(v) {
   return v % 4;
 }
 
@@ -70,6 +77,7 @@ function calcY(v) {
 function calcBlockX(x) {
   return x * imgw + lineWidth + lineWidth * x;
 }
+
 function calcBlockY(y) {
   return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
 }
@@ -150,22 +158,13 @@ window.onload = () => {
     $('body, html').scrollTop(0);
     $('#page-1').hide();
     $('#page-2').show();
-    /*imgs.map((i, v) => {
-      if (typeof(i) === undefined) {
-        return;
-      }
-      const xPos = v%4;
-      const yPos = Math.floor(v/4);
-      const imgWidth = canvas.width / 4;
-      const imgHeight = canvas.height / 3;
-      ctx.drawImage(i, xPos * imgWidth, yPos * imgHeight, );
-    });*/
   });
   $('#next-2').click(() => {
     $('body, html').scrollTop(0);
     $('#page-2').hide();
     $('#page-3').show();
     $('#sample-image').get(0).src = canvas.get(0).toDataURL();
+    setYourName();
   });
   $('#back-1').click(() => {
     $('#page-2').hide();
