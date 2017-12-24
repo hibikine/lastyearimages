@@ -137,7 +137,9 @@ export function createUploadForm(ctx) {
           imgComponent.onload = () => {
             drawImageToCanvas(ctx, null, imgComponent, v);
           };
-          imgComponent.src = `${image}:small`;
+          
+          imgComponent.src = `/oekaki/proxy.php?url=${encodeURIComponent(`${image}:small`)}`;
+          console.log(imgComponent.src);
           selectPaneInner.children('input').removeClass('image-button-active');
           btn.addClass('image-button-active');
           return false;
