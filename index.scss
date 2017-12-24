@@ -37,5 +37,53 @@ label {
 .name-container {
   text-align: center;
 }
-.tweet-sample {
+
+.tweet-sample {}
+
+.old-tweet-login {
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
+
+.navbar-brand {
+	@media screen and (max-width: 360px) {
+		font-size: 1rem;
+	}
+}
+
+#page-1 {
+  .top-texts {
+    margin-bottom: 40px;
+	@media screen and (min-width: 768px) {
+		.bottom-wrapper {
+		  align-items: flex-end;
+		  position: relative;
+		}
+		.bottom-contents {
+		  position: absolute;
+		  bottom: 0;
+		}
+	}
+  }
+  .tab-content {
+    .tab-pane {
+      padding-top: 30px;
+      padding-bottom: 18px;
+	  .select-pane-inner {
+		height: 160px;
+		display: flex;
+		padding: 0;
+		margin-bottom: 40px;
+		flex-direction: row;
+		overflow: auto;
+		input {
+		  filter: brightness(0.6);
+		}
+		.image-button-active {
+		  filter: brightness(1);
+		}
+	  }
+    }
+  }
+}
+

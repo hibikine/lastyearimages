@@ -20,6 +20,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="./favicon.ico" />
   <meta name="description" content="今年1年で描いた絵をまとめてTwitterにアップロードしよう！">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="twitter:card" content="summary" />
@@ -31,7 +32,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="https://hibikine.me/oekaki/">お絵かき1年録ジェネレーター</a>
+    <a class="navbar-brand" href="https://hibikine.me/oekaki/">お絵かき1年録ジェネレータ</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -54,8 +55,19 @@
 
     <div id="page-1">
       <h1>お絵かき1年録ジェネレーター</h1>
-      <p><img class="sashie" src="img/usagi.png" alt="うさぎの挿絵"></p>
-      <p>今年1年で描いた絵を月ごとにアップロードしよう！</p>
+      <div class="row top-texts">
+        <div class="col-md-4 col-sm-12">
+          <p><img class="sashie" src="img/usagi.png" alt="うさぎの挿絵"></p>
+        </div>
+        <div class="col-md-8 col-sm-12 bottom-wrapper">
+          <div class="bottom-contents">
+            <p>今年1年で描いた絵を月ごとにアップロードしよう！</p>
+            <div class="old-tweet-login">
+              <p>Twitterにログインすると、過去のツイートの画像から作成できます！</p>
+            </div>
+            <a id="login" class="btn btn-lg btn-primary" role="button">Twitterにログイン</a></div>
+        </div>
+      </div>
       <form id="upload-form">
       </form>
       <button id="next-1" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ</button>
@@ -93,6 +105,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/fileinput.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/themes/fa/theme.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/locales/ja.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
   <script src="src/index.js"></script>
 </body>
 

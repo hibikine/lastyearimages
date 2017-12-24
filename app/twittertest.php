@@ -31,7 +31,7 @@ if (array_key_exists('oauth_token', $_SESSION)) {
     $con = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 
     $reqtkn = $con->oauth("oauth/request_token", [
-        "oauth_callback" => "http://localhost:8000/twittertest.php"
+        "oauth_callback" => "http://192.168.99.100/oekaki/twittertest.php"
     ]);
     $_SESSION['oauth_token'] = $reqtkn['oauth_token'];
     $_SESSION['oauth_token_secret'] = $reqtkn['oauth_token_secret'];
@@ -39,5 +39,3 @@ if (array_key_exists('oauth_token', $_SESSION)) {
         "oauth_token" => $reqtkn['oauth_token']]);
     header('Location: ' . $url);
 }
-
-

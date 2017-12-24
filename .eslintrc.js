@@ -12,5 +12,7 @@ module.exports = {
     "document": true,
     "Image": true,
     "gtag": true,
+    "Cookies": true,
+    "fetch": true,
   }
 }

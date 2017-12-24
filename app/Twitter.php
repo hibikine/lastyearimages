@@ -11,6 +11,17 @@ class Twitter {
         }
     }
 
+    public function getUsetStatusesOne()
+    {
+        $query = [
+            'count' => 200,
+            'exclude_replies' => false,
+            'include_rts' => false,
+        ];
+        return $this->connect->get('statuses/user_timeline', $query);
+        //return $this->getAll('statuses/user_timeline', $query);
+    }
+
     public function getUserStatuses()
     {
         $query = [
