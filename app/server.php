@@ -4,8 +4,6 @@ require "vendor/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 require 'consts.php';
 
-$developEnvironment = DEVELOP_ENVIRONMENT;
-
 session_start();
 
 $oauthRoot = 'https://hibikine.me';

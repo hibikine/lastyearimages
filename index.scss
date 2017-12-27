@@ -65,22 +65,37 @@ label {
 		}
 	}
   }
+  #upload-form {
+    & > div {
+      margin-bottom: 20px;
+    }
+  }
+  .nav-item {
+    margin-right: 3px;
+  }
   .tab-content {
+    border: solid 1px gray;
+    padding: 0 10px;
     .tab-pane {
       padding-top: 30px;
       padding-bottom: 18px;
 	  .select-pane-inner {
-		height: 160px;
+		height: 170px;
 		display: flex;
 		padding: 0;
 		margin-bottom: 40px;
 		flex-direction: row;
 		overflow: auto;
-		input {
+		
 		  filter: brightness(0.6);
+		  padding: 0 2px;
+		  width: 150px;
+		  height: 150px;
+		  border: solid 3px rgba(0,0,0,0);
 		}
 		.image-button-active {
 		  filter: brightness(1);
+		  border: solid 1px #25e925;
 		}
 	  }
     }
