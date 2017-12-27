@@ -50,18 +50,15 @@ export function initSubmitForm(canvas) {
   });
 }
 
-export function createUploadForm(ctx) {
+export async function createUploadForm(ctx) {
   const form = $('#upload-form');
   const callbacks = Array(12).fill(0).map((i, v) => {
     const p = $('<p></p>');
 
     const inputId = `image-${v}`;
     const f = $(`<input id="${inputId}" type="file" />`);
-    f.change = () => {};
+    const allWrapper = $(`<div><h2>${v + 1}月</h2></div>`);
 
-    //const l = $(`<label for="${inputId}">${v + 1}月</label>`);
-
-    //p.append(l);
     p.append(f);
     f.fileinput(formConfig);
     f.on('fileimageloaded', (event) => {
@@ -78,23 +75,15 @@ export function createUploadForm(ctx) {
 
     // ログイン時はタブを出す
     if (isLogin()) {
-      const allWrapper = $(`<div><h2>${v+1}月</h2></div>`);
-      const tabWrapper = $(`
-<ul class="nav nav-tabs">
-</ul>`);
-      const selectTab = $(`<li class="nav-item">
-</li>`);
-      const selectTabLink = $(`<a href="#select-pane-${v}" class="nav-link bg-primary text-light active" data-toggle="tab">Twitterから選択</a>`);
-      const uploadTab = $(`
-<li class="nav-item">
-
-</li>`);
-      const uploadTabLink = $(`<a href="#upload-pane-${v}" class="nav-link bg-primary text-light" data-toggle="tab">ファイルを選択</a>`);
-      const contentWrapper = $(`
-<div class="tab-content"></div>`);
+      const tabWrapper = $(`<ul class="nav nav-tabs"></ul>`);
+      const selectTab = $(`<li class="nav-item"></li>`);
+      const selectTabLink = $(`<a href="#select-pane-${v}" class="nav-link active" data-toggle="tab">Twitterから選択</a>`);
+      const uploadTab = $(`<li class="nav-item"></li>`);
+      const uploadTabLink = $(`<a href="#upload-pane-${v}" class="nav-link" data-toggle="tab">ファイルから選択</a>`);
+      const contentWrapper = $(`<div class="tab-content"></div>`);
       const selectPane = $(`<div id="select-pane-${v}" class="tab-pane active"></div>`);
       const selectPaneInner = $('<div class="select-pane-inner"></div>');
-      const loading = $('<img width="64px" height="64px" src="./img/loading.gif" />');
+      const loading = $('<img class="loading" width="64px" height="64px" src="./img/loading.gif" />');
       const uploadPane = $(`<div id="upload-pane-${v}" class="tab-pane"></div>`);
       contentWrapper.append(selectPane);
       selectPane.append(selectPaneInner);
@@ -121,6 +110,7 @@ export function createUploadForm(ctx) {
           selectTabLink.removeClass('bg-primary');
           selectTabLink.addClass('disabled');
           selectTabLink.addClass('bg-secondary');
+          selectTab.remove();
           selectPane.removeClass('active')
           uploadPane.addClass('active')
           uploadPane.addClass('select-pane')
@@ -128,33 +118,35 @@ export function createUploadForm(ctx) {
           return selectPaneInner;
         }
         selectPaneInner.append(monthlyTweets.map(image => {
-          const btn = $(`
-  <input type="image" src="${image}:thumb" />
-        `);
-        btn.click(() => {
-          const imgComponent = new Image();
-          imgComponent.onload = () => {
-            drawImageToCanvas(ctx, null, imgComponent, v);
-          };
-          
-          imgComponent.src = `/oekaki/proxy.php?url=${encodeURIComponent(`${image}:small`)}`;
-          selectPaneInner.children('input').removeClass('image-button-active');
-          btn.addClass('image-button-active');
-          return false;
-        });
-        return btn;
-      }));
-      return selectPaneInner;
-    };
+          const btn = $(`<input type="image" width="150" height="150" src="${image}:thumb" />`);
+          const buttonWrapper = $('<span class="button-wrapper"></span>');
+          btn.click(() => {
+            const imgComponent = new Image();
+            imgComponent.onload = () => {
+              drawImageToCanvas(ctx, null, imgComponent, v);
+            };
+
+            imgComponent.src = `/oekaki/proxy.php?url=${encodeURIComponent(`${image}:small`)}`;
+            selectPaneInner.children('span').removeClass('image-button-active');
+            buttonWrapper.addClass('image-button-active');
+            return false;
+          });
+          buttonWrapper.append(btn);
+          return buttonWrapper;
+        }));
+        return selectPaneInner;
+      };
+    } else {
+      allWrapper.append(p);
+      form.append(allWrapper);
     }
-    form.append(p);
     return f;
   });
 
   if (isLogin()) {
     const response = await fetch('/oekaki/get-user-images.php', {
-        method: 'GET',
-        credentials: 'include',
+      method: 'GET',
+      credentials: 'include',
     });
     if (response.ok) {
       const tweets = await response.json();

@@ -10,3 +10,6 @@ if (isLogin()) {
   loginButton.hide();
   $('.old-tweet-login').hide();
 }
+loginButton.click(() => {
+  gtag('event', 'login');
+});
