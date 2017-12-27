@@ -1,0 +1,6 @@
+lastyearimages:
+  image: php:7.1-apache
+  ports:
+    - "80:80"
+  environment:
+    PROJECT_ENVIRONMENT: development
