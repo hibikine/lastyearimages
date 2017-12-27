@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": [
-      "\\cp -rf app/* oekaki/"
+      "\\cp -rf oekaki/* oekaki/"
     ],
     "test": [
       "phpunit"

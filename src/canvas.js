@@ -4,9 +4,6 @@ import {
   calcY,
 } from './utilities';
 
-// canvasの高さはHTML側にコーディングしてあるので変えること
-// TODO: canvasをjQueryで生成させる
-
 const canvasBackground = '#6d6d6d';
 const textColor = '#f7f7f7';
 const titleBackground = '#f0f0f0';
@@ -14,8 +11,9 @@ const titleTextColor = '#494949';
 const fontfamilies = "游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif";
 const fontweight = 800;
 const fontSizeMonth = 40;
-const fontSizeTitle = 80;
-const headerHeight = 100;
+const headerHeight = 140
+const fontSizeTitle = headerHeight * 2 / 3;
+;
 const monthHeaderHeight = 50;
 const lineWidth = 2;
 const imgw = 300;

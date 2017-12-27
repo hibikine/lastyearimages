@@ -1,6 +1,12 @@
 import $ from 'jquery';
+import 'lazyload';
+import moment from 'moment';
 
-import { drawImageToCanvas, drawText } from './canvas';
+import {
+  drawImageToCanvas,
+  drawText,
+} from './canvas';
+import isLogin from './login';
 
 const _URL = window.URL || window.webkitURL;
 
@@ -44,31 +50,140 @@ export function initSubmitForm(canvas) {
   });
 }
 
-export function createUploadForm(ctx) {
+export async function createUploadForm(ctx) {
   const form = $('#upload-form');
-  Array(12).fill(0).map((i, v) => {
+  const callbacks = Array(12).fill(0).map((i, v) => {
     const p = $('<p></p>');
 
     const inputId = `image-${v}`;
     const f = $(`<input id="${inputId}" type="file" />`);
-    f.change = () => {};
+    const allWrapper = $(`<div><h2>${v + 1}月</h2></div>`);
 
-    const l = $(`<label for="${inputId}">${v + 1}月</label>`);
-
-    form.append(p);
-    p.append(l);
     p.append(f);
     f.fileinput(formConfig);
     f.on('fileimageloaded', (event) => {
       if (typeof (event.currentTarget.files[0]) !== 'undefined') {
         const file = event.currentTarget.files[0];
         const img = new Image();
+        img.crossOrigin = "use-credentials";
         img.onload = () => {
           drawImageToCanvas(ctx, file, img, v);
         };
         img.src = _URL.createObjectURL(file);
       }
     });
+
+    // ログイン時はタブを出す
+    if (isLogin()) {
+      const tabWrapper = $(`<ul class="nav nav-tabs"></ul>`);
+      const selectTab = $(`<li class="nav-item"></li>`);
+      const selectTabLink = $(`<a href="#select-pane-${v}" class="nav-link active" data-toggle="tab">Twitterから選択</a>`);
+      const uploadTab = $(`<li class="nav-item"></li>`);
+      const uploadTabLink = $(`<a href="#upload-pane-${v}" class="nav-link" data-toggle="tab">ファイルから選択</a>`);
+      const contentWrapper = $(`<div class="tab-content"></div>`);
+      const selectPane = $(`<div id="select-pane-${v}" class="tab-pane active"></div>`);
+      const selectPaneInner = $('<div class="select-pane-inner"></div>');
+      const loading = $('<img class="loading" width="64px" height="64px" src="./img/loading.gif" />');
+      const uploadPane = $(`<div id="upload-pane-${v}" class="tab-pane"></div>`);
+      contentWrapper.append(selectPane);
+      selectPane.append(selectPaneInner);
+      contentWrapper.append(uploadPane);
+      tabWrapper.append(selectTab);
+      tabWrapper.append(uploadTab);
+      selectTab.append(selectTabLink);
+      uploadTab.append(uploadTabLink);
+
+      allWrapper.append(tabWrapper);
+      allWrapper.append(contentWrapper);
+
+      uploadPane.append(p);
+      selectPaneInner.append(loading);
+
+      form.append(allWrapper);
+
+      // 毎月の画像を取って設定するコールバック
+      return monthlyTweets => {
+        loading.remove();
+        if (monthlyTweets.length === 0) {
+          // 画像が1つもない場合はタブをDisableにする
+          selectTabLink.removeClass('active');
+          selectTabLink.removeClass('bg-primary');
+          selectTabLink.addClass('disabled');
+          selectTabLink.addClass('bg-secondary');
+          selectTab.remove();
+          selectPane.removeClass('active')
+          uploadPane.addClass('active')
+          uploadPane.addClass('select-pane')
+          uploadTabLink.addClass('active');
+          return selectPaneInner;
+        }
+        selectPaneInner.append(monthlyTweets.map(image => {
+          const btn = $(`<input type="image" width="150" height="150" src="${image}:thumb" />`);
+          const buttonWrapper = $('<span class="button-wrapper"></span>');
+          btn.click(() => {
+            const imgComponent = new Image();
+            imgComponent.onload = () => {
+              drawImageToCanvas(ctx, null, imgComponent, v);
+            };
+
+            imgComponent.src = `/oekaki/proxy.php?url=${encodeURIComponent(`${image}:small`)}`;
+            selectPaneInner.children('span').removeClass('image-button-active');
+            buttonWrapper.addClass('image-button-active');
+            return false;
+          });
+          buttonWrapper.append(btn);
+          return buttonWrapper;
+        }));
+        return selectPaneInner;
+      };
+    } else {
+      allWrapper.append(p);
+      form.append(allWrapper);
+    }
     return f;
   });
+
+  if (isLogin()) {
+    const response = await fetch('/oekaki/get-user-images.php', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (response.ok) {
+      const tweets = await response.json();
+      if (tweets.error !== 'true') {
+        const thisYear = moment().subtract(335, 'dates').year();
+        callbacks.map((f, v) => {
+          const minDate = moment([thisYear, v, 1]).subtract(1, 'days');
+          const maxDate = moment([thisYear, v + 1, 1]).endOf('day');
+          return f(tweets.filter((tweet) => {
+            // 画像つきツイートのみ抽出
+            if (tweet.media === null) {
+              return false;
+            }
+            if (tweet.media[0].type !== 'photo') {
+              return false;
+            }
+
+            // 時間内のものだけ抽出
+            const createdAt = moment(tweet.created_at, 'ddd MMM D HH:mm:ss ZZ YYYY').startOf('day');
+            if (createdAt.isAfter(maxDate)) {
+              return false;
+            }
+            if (createdAt.isBefore(minDate)) {
+              return false;
+            }
+
+            return true;
+          }).reduce((images, tweet) => {
+            Array.prototype.push.apply(
+              images,
+              tweet.media.map(media => media.media_url_https),
+            );
+            return images;
+          }, []));
+        });
+      }
+    }
+    return null;
+  }
 }
