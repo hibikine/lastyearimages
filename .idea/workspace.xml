@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="34cd50ae-f93c-432b-a9f9-c3685ebc462e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change beforePath="$PROJECT_DIR$/index.scss" afterPath="$PROJECT_DIR$/index.scss" />
+      <change beforePath="$PROJECT_DIR$/src/canvas.js" afterPath="$PROJECT_DIR$/src/canvas.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,13 +44,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="77" column="84" lean-forward="false" selection-start-line="77" selection-start-column="84" selection-end-line="77" selection-end-column="84" />
+            <state relative-caret-position="311">
+              <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
               <folding>
                 <element signature="e#5658#5664#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="canvas.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/canvas.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+                <marker date="1514378777619" expanded="true" signature="1566:1676" ph="..." />
               </folding>
             </state>
           </provider>
@@ -61,7 +73,7 @@
         <entry file="file://$PROJECT_DIR$/index.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
-              <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -71,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/oekaki/server.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+              <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -110,18 +122,8 @@
       <file leaf-file-name="4d30c645ad3ab1c3bd2b5efa815674e9.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oekaki/4d30c645ad3ab1c3bd2b5efa815674e9.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1698">
-              <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="proxy.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/oekaki/proxy.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="-155">
+              <caret line="0" column="2063" lean-forward="false" selection-start-line="0" selection-start-column="2063" selection-end-line="0" selection-end-column="2063" />
               <folding />
             </state>
           </provider>
@@ -165,6 +167,7 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/index.scss" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/canvas.js" />
       </list>
     </option>
   </component>
@@ -268,16 +271,6 @@
             <path>
               <item name="lastyearimages" type="b2602c69:ProjectViewProjectNode" />
               <item name="lastyearimages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="img" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="lastyearimages" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lastyearimages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="oekaki" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="lastyearimages" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lastyearimages" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
@@ -338,7 +331,7 @@
       <updated>1513919526236</updated>
       <workItem from="1513919537436" duration="2434000" />
       <workItem from="1514367722941" duration="63000" />
-      <workItem from="1514372508391" duration="6067000" />
+      <workItem from="1514372508391" duration="6268000" />
     </task>
     <task id="LOCAL-00001" summary="画像のディレクトリを切った">
       <created>1513921088552</created>
@@ -365,7 +358,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10961000" />
+    <option name="totallyTimeSpent" value="11162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
@@ -413,14 +406,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/oekaki/proxy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oekaki/get-user-images-callback.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -677,8 +662,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/oekaki/4d30c645ad3ab1c3bd2b5efa815674e9.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1698">
-          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+        <state relative-caret-position="-155">
+          <caret line="0" column="2063" lean-forward="false" selection-start-line="0" selection-start-column="2063" selection-end-line="0" selection-end-column="2063" />
           <folding />
         </state>
       </provider>
@@ -730,7 +715,7 @@
     <entry file="file://$PROJECT_DIR$/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
-          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -738,17 +723,28 @@
     <entry file="file://$PROJECT_DIR$/oekaki/server.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="77" column="84" lean-forward="false" selection-start-line="77" selection-start-column="84" selection-end-line="77" selection-end-column="84" />
+        <state relative-caret-position="311">
+          <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
           <folding>
             <element signature="e#5658#5664#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/canvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1514378777619" expanded="true" signature="1566:1676" ph="..." />
           </folding>
         </state>
       </provider>

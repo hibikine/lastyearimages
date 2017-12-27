@@ -4,8 +4,6 @@ import {
   calcY,
 } from './utilities';
 
-// canvasの高さはHTML側にコーディングしてあるので変えること
-// TODO: canvasをjQueryで生成させる
 
 const canvasBackground = '#6d6d6d';
 const textColor = '#f7f7f7';
