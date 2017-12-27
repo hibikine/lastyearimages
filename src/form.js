@@ -154,7 +154,7 @@ export function createUploadForm(ctx) {
   });
 
   if (isLogin()) {
-    fetch('http://192.168.99.100/oekaki/get-user-images.php', {
+    fetch('https://hibikine.me/oekaki/get-user-images.php', {
         method: 'GET',
         credentials: 'include',
       })
