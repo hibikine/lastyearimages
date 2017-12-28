@@ -24,8 +24,7 @@
         rel="stylesheet" type="text/css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all"
         rel="stylesheet" type="text/css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css" media="all" rel="stylesheet"
-        type="text/css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css" media="all" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="./favicon.ico"/>
   <meta name="description" content="今年1年で描いた絵をまとめてTwitterにアップロードしよう！">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -63,6 +62,9 @@
 
   <div id="page-1">
     <h1>お絵かき1年録ジェネレーター</h1>
+    <p class="col-12 color-palette-wrapper text-center"><input type="text" id="color-picker"/></p>
+    <p class="col-12 name-container">名前:<input type="text" id="name-text"/></p>
+    <div id="canvas-wrapper" class="container canvas-wrapper">
     <div class="row" id="top-texts">
       <div class="col-md-4 col-sm-12">
         <p><img class="sashie" src="img/usagi.png" alt="うさぎの挿絵"></p>
@@ -95,26 +97,22 @@
     </form>
     <button id="next-1" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ(プレビュー)</button>
   </div>
-  <div id="page-2">
     <h1>プレビュー</h1>
-    <p class="col-12 name-container">名前:<input type="text" id="name-text"/></p>
-    <p class="col-12 color-palette-wrapper text-center"><input type="text" id="color-picker"/></p>
-    <div id="canvas-wrapper" class="container canvas-wrapper">
     </div>
     <button id="next-2" type="button" class="next-button btn btn-primary btn-lg btn-block">次へ</button>
     <button id="back-1" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>
-  </div>
+  <div id="page-2"></div>
   <div id="page-3">
     <form id="submit-form" action="./server.php" method="post">
-        <div class="card mx-auto">
-          <div class="tweet-sample col-sm-12">
-            <p><span id="your-name">[名前]</span>のお絵かき1年録！ #お絵かき1年録ジェネレーター</p>
-            <p>コメント:<input id="tweet-text" type="text" name="tweet-text"/></p>
-            <p>https://hibikine.me/oekaki/</p>
-          </div>
-          <img id="sample-image" class="card-img-bottom" alt="サンプル画像" src=""/>
+      <div class="row">
+        <div class="tweet-sample col-sm-12">
+          <p><span id="your-name">[名前]</span>のお絵かき1年録！ #お絵かき1年録ジェネレーター</p>
+          <p>コメント:<input id="tweet-text" type="text" name="tweet-text"/></p>
+          <p>https://hibikine.me/oekaki/</p>
+          <p><img id="sample-image" alt="サンプル画像"/></p>
         </div>
-      <p class="text-center">右クリック・タッチ長押しで保存するか、Twitter認証で投稿できます。</p>
+        <p>右クリックで保存するか、Twitter認証で投稿できます。</p>
+      </div>
       <button id="send" type="submit" class="next-button btn btn-success btn-lg btn-block">Twitter認証して投稿</button>
     </form>
     <button id="back-2" type="button" class="next-button btn btn-secondary btn-lg btn-block">前へ</button>

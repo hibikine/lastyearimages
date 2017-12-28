@@ -1,0 +1,110 @@
+#navbars #logout-button {
+  color: white; }
+
+main {
+  padding-top: 69px; }
+  main h1 {
+    margin-bottom: 20px; }
+  main .next-button {
+    margin: 40px 0; }
+  main #page-1 #top-texts {
+    margin-bottom: 40px; }
+    main #page-1 #top-texts .sashie {
+      width: 300px; }
+    @media screen and (min-width: 768px) {
+      main #page-1 #top-texts .bottom-wrapper {
+        align-items: flex-end;
+        position: relative; }
+      main #page-1 #top-texts .bottom-contents {
+        position: absolute;
+        bottom: 0; } }
+    main #page-1 #top-texts .twitter-widget-wrapper {
+      margin-top: 20px;
+      margin-right: 50px; }
+  main #page-1 #upload-form > div {
+    margin-bottom: 20px; }
+    main #page-1 #upload-form > div .nav-item {
+      margin-right: 3px; }
+      main #page-1 #upload-form > div .nav-item .nav-link {
+        background-color: #7b9abb;
+        color: #dae0e5; }
+        main #page-1 #upload-form > div .nav-item .nav-link.active {
+          background-color: #0062cc;
+          color: #ffffff; }
+    main #page-1 #upload-form > div .tab-content {
+      border: solid 1px #c6c6c6;
+      background-color: #f0f0f0;
+      padding: 0 10px; }
+      main #page-1 #upload-form > div .tab-content .tab-pane {
+        padding-top: 30px;
+        padding-bottom: 18px; }
+        main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner {
+          height: 171px;
+          display: flex;
+          padding: 0;
+          margin-bottom: 10px;
+          flex-direction: row;
+          overflow: auto; }
+          main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .button-wrapper {
+            position: relative; }
+            main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .button-wrapper:before {
+              content: "\f05d";
+              font-family: FontAwesome;
+              position: absolute;
+              display: block;
+              font-size: 30px;
+              left: 10px;
+              color: #afafaf;
+              z-index: 1; }
+            main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .button-wrapper input {
+              width: 150px;
+              height: 150px;
+              filter: brightness(0.6);
+              padding: 0 2px;
+              border: solid 3px transparent; }
+            main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .button-wrapper.image-button-active:before {
+              content: "\f05d";
+              font-family: FontAwesome;
+              position: absolute;
+              display: block;
+              font-size: 30px;
+              left: 10px;
+              color: #25e925;
+              z-index: 1; }
+            main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .button-wrapper.image-button-active input {
+              filter: brightness(1);
+              border: solid 3px #25e925; }
+          main #page-1 #upload-form > div .tab-content .tab-pane .select-pane-inner .loading {
+            filter: brightness(1); }
+
+.color-palette-wrapper {
+  margin-top: 10px;
+  padding-left: 50px; }
+  .color-palette-wrapper .sp-container {
+    z-index: 0; }
+    .color-palette-wrapper .sp-container .sp-palette-container .sp-palette {
+      max-width: 100%; }
+      .color-palette-wrapper .sp-container .sp-palette-container .sp-palette .sp-thumb-el {
+        width: 48px;
+        height: 48px; }
+
+.canvas-wrapper {
+  max-width: 600px !important; }
+
+#sample-image {
+  width: 400px; }
+
+.likedl {
+  width: 100%;
+  max-width: 400px; }
+
+.name-container {
+  text-align: center; }
+
+.old-tweet-login {
+  margin-top: 20px;
+  margin-bottom: 40px; }
+
+@media screen and (max-width: 360px) {
+  .navbar-brand {
+    font-size: 1rem; } }

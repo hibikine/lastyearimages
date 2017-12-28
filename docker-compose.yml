@@ -4,3 +4,5 @@ lastyearimages:
     - "80:80"
   environment:
     PROJECT_ENVIRONMENT: development
+  volumes:
+    - "./oekaki:/var/www/html/oekaki"

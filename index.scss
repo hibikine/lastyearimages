@@ -8,30 +8,124 @@ $check-green: #25e925;
 
 main {
   padding-top: 69px;
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .next-button {
+    margin: 40px 0;
+  }
+  #page-1 {
+    #top-texts {
+      margin-bottom: 40px;
+      .sashie {
+        width: 300px;
+      }
+      @media screen and (min-width: 768px) {
+        .bottom-wrapper {
+          align-items: flex-end;
+          position: relative;
+        }
+        .bottom-contents {
+          position: absolute;
+          bottom: 0;
+        }
+      }
+      .twitter-widget-wrapper {
+        margin-top: 20px;
+        margin-right: 50px;
+      }
+    }
+    #upload-form {
+      & > div {
+        .nav-item {
+          margin-right: 3px;
+          .nav-link {
+            background-color: #7b9abb;
+            color: #dae0e5;
+            &.active {
+              background-color: #0062cc;
+              color: #ffffff;
+            }
+          }
+        }
+        margin-bottom: 20px;
+        .tab-content {
+          border: solid 1px #c6c6c6;
+          background-color: #f0f0f0;
+          padding: 0 10px;
+          .tab-pane {
+            padding-top: 30px;
+            padding-bottom: 18px;
+            .select-pane-inner {
+              height: 171px;
+              display: flex;
+              padding: 0;
+              margin-bottom: 10px;
+              flex-direction: row;
+              overflow: auto;
+              .button-wrapper {
+                position: relative;
+                @mixin checkicon($color: gray) {
+                  content: "\f05d";
+                  font-family: FontAwesome;
+                  position: absolute;
+                  display: block;
+                  font-size: 30px;
+                  left: 10px;
+                  color: $color;
+                  z-index: 1;
+                }
+                &:before {
+                  @include checkicon(#afafaf);
+                }
+                input {
+                  width: 150px;
+                  height: 150px;
+                  filter: brightness(0.6);
+                  padding: 0 2px;
+                  border: solid 3px rgba(0, 0, 0, 0);
+                }
+                &.image-button-active {
+                  &:before {
+                    @include checkicon($check-green);
+                  }
+                  input {
+                    filter: brightness(1);
+                    border: solid 3px $check-green;
+                  }
+                }
+              }
+              .loading {
+                filter: brightness(1);
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-h1 {
-  margin-bottom: 20px;
+.color-palette-wrapper {
+  margin-top: 10px;
+  padding-left: 50px;
+  .sp-container{
+    z-index: 0;
+    .sp-palette-container {
+      .sp-palette {
+        max-width: 100%;
+        .sp-thumb-el {
+          width: 48px;
+          height: 48px;
+        }
+      }
+    }
+  }
 }
 
-label {
-  width: 3em;
-  font-size: 20px;
-  text-align: right;
-  margin-right: 10px;
-}
-
-.twitter-widget-wrapper {
-  margin-top: 20px;
-  margin-right: 50px;
-}
-
-.next-button {
-  margin: 40px 0;
-}
-
-.sashie {
-  width: 300px;
+.card-wrapper {
 }
 
 .canvas-wrapper {
@@ -40,6 +134,9 @@ label {
 
 #sample-image {
   width: 400px;
+}
+.tweet-sample {
+  margin-top: 10px;
 }
 
 .likedl {
@@ -54,6 +151,11 @@ label {
 .tweet-sample {
 }
 
+.card {
+  width: 402px;
+  margin-bottom: 40px;
+}
+
 .old-tweet-login {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -62,91 +164,6 @@ label {
 .navbar-brand {
   @media screen and (max-width: 360px) {
     font-size: 1rem;
-  }
-}
-
-#page-1 {
-  .top-texts {
-    margin-bottom: 40px;
-    @media screen and (min-width: 768px) {
-      .bottom-wrapper {
-        align-items: flex-end;
-        position: relative;
-      }
-      .bottom-contents {
-        position: absolute;
-        bottom: 0;
-      }
-    }
-  }
-  #upload-form {
-    & > div {
-      margin-bottom: 20px;
-    }
-  }
-  .nav-item {
-    margin-right: 3px;
-    .nav-link {
-      background-color: #7b9abb;
-      color: #dae0e5;
-      &.active {
-        background-color: #0062cc;
-        color: #ffffff;
-      }
-    }
-  }
-  .tab-content {
-    border: solid 1px #c6c6c6;
-    background-color: #f0f0f0;
-    padding: 0 10px;
-    .tab-pane {
-      padding-top: 30px;
-      padding-bottom: 18px;
-      .select-pane-inner {
-        height: 171px;
-        display: flex;
-        padding: 0;
-        margin-bottom: 10px;
-        flex-direction: row;
-        overflow: auto;
-        .button-wrapper {
-          position: relative;
-          @mixin checkicon($color: gray) {
-            content: "\f05d";
-            font-family: FontAwesome;
-            position: absolute;
-            display: block;
-            font-size: 30px;
-            left: 10px;
-            color: $color;
-            z-index: 1;
-          }
-          &:before {
-            @include checkicon(#afafaf);
-          }
-          input {
-            width: 150px;
-            height: 150px;
-            filter: brightness(0.6);
-            padding: 0 2px;
-            border: solid 3px rgba(0, 0, 0, 0);
-          }
-          &.image-button-active {
-            &:before {
-              @include checkicon($check-green);
-            }
-            input {
-              filter: brightness(1);
-              border: solid 3px $check-green;
-            }
-          }
-        }
-        .loading {
-          filter: brightness(1);
-        }
-
-      }
-    }
   }
 }
 

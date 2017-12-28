@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --out-dir oekaki",
-    "build": "parcel build index.html --out-dir oekaki",
+    "build": "parcel build index.html --out-dir oekaki && parcel build posted.html --out-dir oekaki",
     "watch": "parcel watch index.html --out-dir oekaki",
-    "docker": "docker run -d -p 80:80 --name lastyearimages -v oekaki:/var/www/html/oekaki php:7.0-apache"
+    "docker": "docker-compose up -d"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
@@ -30,6 +30,7 @@
     "oauth": "^0.9.15",
     "popper.js": "^1.12.3",
     "spectrum-colorpicker": "^1.8.0",
+    "tinycolor2": "^1.4.1",
     "twitter-node-client": "^0.0.6"
   }
 }

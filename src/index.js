@@ -11,6 +11,7 @@ import {
   initSubmitForm,
 } from './form';
 import initPages from './pages';
+import initColorPicker from './color-picker';
 
 import '../index.scss';
 
@@ -20,4 +21,5 @@ window.onload = () => {
   initPages(canvas);
   initNameForm(ctx);
   initSubmitForm(canvas);
+  initColorPicker(ctx);
 };

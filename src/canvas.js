@@ -3,6 +3,7 @@ import {
   calcX,
   calcY,
 } from './utilities';
+import tinycolor from 'tinycolor2';
 
 const canvasBackground = '#6d6d6d';
 const textColor = '#f7f7f7';
@@ -11,33 +12,39 @@ const titleTextColor = '#494949';
 const fontfamilies = "游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif";
 const fontweight = 800;
 const fontSizeMonth = 40;
-const headerHeight = 140
+const headerHeight = 140;
 const fontSizeTitle = headerHeight * 2 / 3;
 ;
-const monthHeaderHeight = 50;
-const lineWidth = 2;
-const imgw = 300;
-const imgh = 300;
+const monthHeaderHeight = 68;
+const lineWidth = 7;
+const imageWidth = 300;
+const imageHeight = 300;
 
-const canvasWidth = imgw * 4 + lineWidth * 5;
-const canvasHeight = imgh * 3 + headerHeight + monthHeaderHeight * 3 + lineWidth * 3;
+const canvasWidth = imageWidth * 4 + lineWidth * 5;
+const canvasHeight = imageHeight  * 3 + headerHeight + monthHeaderHeight * 3 + lineWidth;
 
-const monthTextStyle = `${fontweight} ${fontSizeMonth}px ${fontfamilies}`; // `
-const titleTextStyle = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
+const monthTextFont = `${fontweight} ${fontSizeMonth}px ${fontfamilies}`; // `
+const titleTextFont = `${fontweight} ${fontSizeTitle}px ${fontfamilies}`;
 
 export function calcBlockX(x) {
-  return x * imgw + lineWidth + lineWidth * x;
+  return x * imageWidth + lineWidth + lineWidth * x;
 }
 
 export function calcBlockY(y) {
-  return y * imgh + headerHeight + y * lineWidth + monthHeaderHeight + monthHeaderHeight * y;
+  return y * imageHeight  + headerHeight + monthHeaderHeight + monthHeaderHeight * y;
 }
 
-export function drawText(ctx) {
-  ctx.fillStyle = titleBackground;
+let settedBackgroundColor = canvasBackground;
+export function drawText(ctx, background){
+  if (typeof(background) === 'undefined') {
+    background = settedBackgroundColor;
+  }
+
+  // タイトル
+  const titleTextColor = tinycolor(background).darken(15).toString();
   ctx.fillRect(0, 0, canvasWidth, headerHeight);
   ctx.fillStyle = titleTextColor;
-  ctx.font = titleTextStyle;
+  ctx.font = titleTextFont;
   let drawtext = '';
   const name = $('#name-text').get(0).value;
   if (name !== '') {
@@ -45,12 +52,44 @@ export function drawText(ctx) {
   } else {
     drawtext = 'お絵かき1年録';
   }
+  ctx.textAlign = 'center';
   ctx.fillText(
     drawtext, canvasWidth / 2, headerHeight - fontSizeTitle / 3,
     canvasWidth,
   );
-}
 
+  // 縦線
+  Array(5).fill(0).map((i, v) => {
+    const x = (lineWidth + imageWidth) * v;
+    ctx.fillStyle = background;
+    ctx.fillRect(x, headerHeight, lineWidth, canvasHeight - headerHeight);
+  });
+
+  // 横線
+  Array(4).fill(0).map((i, v) => {
+    ctx.beginPath();
+    const y = headerHeight + (monthHeaderHeight + imageHeight ) * v;
+    const gradient = ctx.createLinearGradient(0, y, 0, y + monthHeaderHeight);
+    gradient.addColorStop(0, background);
+    gradient.addColorStop(1, tinycolor(background).darken(5).toString());
+    ctx.fillStyle = gradient;
+    ctx.rect(0, y, canvasWidth, monthHeaderHeight);
+    ctx.fill();
+  });
+
+  // 文字
+  Array(12).fill(0).map((i, v) => {
+    const x = calcX(v);
+    const y = calcY(v);
+    const xPos = lineWidth + imageWidth / 2 + (imageWidth + lineWidth) * x;
+    const yPos =
+      (headerHeight + monthHeaderHeight) +
+      (imageHeight + monthHeaderHeight) * y - 20;
+    ctx.fillStyle = textColor;
+    ctx.font = monthTextFont;
+    ctx.fillText(`${v + 1}月`, xPos, yPos);
+  });
+}
 
 export function initCanvas() {
   const canvas = $(`
@@ -62,23 +101,8 @@ export function initCanvas() {
   ></canvas>`);
   $('#canvas-wrapper').html(canvas);
   const ctx = canvas.get(0).getContext('2d');
-  ctx.fillStyle = canvasBackground;
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
   ctx.fillStyle = textColor;
-  ctx.font = monthTextStyle;
-  ctx.textAlign = 'center';
-  Array(12).fill(0).map((i, v) => {
-    const x = calcX(v);
-    const y = calcY(v);
-    const xPos = lineWidth + imgw / 2 + (imgw + lineWidth) * x;
-    const yPos =
-      (headerHeight + monthHeaderHeight) +
-      (imgh + lineWidth + monthHeaderHeight) * y -
-      fontSizeMonth / 4;
-    ctx.fillText(`${v + 1}月`, xPos, yPos);
-    ctx.fillRect(calcBlockX(x), calcBlockY(y), imgw, imgh);
-    return v;
-  });
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
   drawText(ctx);
   return [canvas, ctx];
 }
@@ -97,8 +121,8 @@ export function drawImageToCanvas(ctx, file, img, month) {
       img.height,
       xPos,
       yPos,
-      imgw,
-      imgh,
+      imageWidth,
+      imageHeight ,
     );
   } else {
     ctx.drawImage(
@@ -109,8 +133,8 @@ export function drawImageToCanvas(ctx, file, img, month) {
       img.width,
       xPos,
       yPos,
-      imgw,
-      imgh,
+      imageWidth,
+      imageHeight ,
     );
   }
 }
