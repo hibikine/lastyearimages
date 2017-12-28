@@ -29,6 +29,7 @@
     "moment": "^2.20.1",
     "oauth": "^0.9.15",
     "popper.js": "^1.12.3",
+    "spectrum-colorpicker": "^1.8.0",
     "twitter-node-client": "^0.0.6"
   }
 }

@@ -46,7 +46,7 @@ export function drawText(ctx) {
     drawtext = 'お絵かき1年録';
   }
   ctx.fillText(
-    drawtext, canvasWidth / 2, headerHeight - fontSizeTitle / 4,
+    drawtext, canvasWidth / 2, headerHeight - fontSizeTitle / 3,
     canvasWidth,
   );
 }
