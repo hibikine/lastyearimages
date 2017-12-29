@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {
   calcX,
   calcY,

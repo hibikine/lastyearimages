@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --out-dir oekaki",
-    "build": "parcel build index.html --out-dir oekaki && parcel build posted.html --out-dir oekaki",
+    "build": "parcel build posted.html --out-dir oekaki && parcel build index.html --out-dir oekaki",
     "watch": "parcel watch index.html --out-dir oekaki",
     "docker": "docker-compose up -d"
   },
@@ -18,13 +18,10 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^22.0.3",
     "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.2.0"
+    "parcel-bundler": "^1.3.1"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.0.0-beta.2",
-    "bootstrap-fileinput": "^4.4.6",
-    "jquery": "3",
     "lazyload": "^2.0.0-beta.2",
     "moment": "^2.20.1",
     "oauth": "^0.9.15",

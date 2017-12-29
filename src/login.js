@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 const isLogged = Cookies.get('is_login');
 export default function isLogin() {
   return isLogged;
@@ -12,7 +10,7 @@ if (isLogin()) {
   const logoutButton = $('<button id="logout-button" class="btn btn-link">ログアウト</button>');
   logoutButton.click(() => {
     Cookies.remove('is_login', { path: '' });
-    Cookies.remove('PHPSESSID', { path: '' });
+    Cookies.remove('PHPSESSID', { path: '/' });
     location.reload();
   });
   $('#navbars').append($('<p class="d-inline my-2 my-lg-0"></p>').append(logoutButton));

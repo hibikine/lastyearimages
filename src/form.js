@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import 'lazyload';
 import moment from 'moment';
 

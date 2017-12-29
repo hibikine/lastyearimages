@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { setYourName } from './form';
 
 function gtagPageMove(pageNo, moveType) {

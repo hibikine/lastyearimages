@@ -1,3 +1,7 @@
 <Files ~ "^consts\.php$">
 deny from all
 </Files>
+
+# gzip圧縮を行う
+SetOutputFilter DEFLATE
+SetEnv force-gzip
