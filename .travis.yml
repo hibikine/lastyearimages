@@ -1,10 +1,10 @@
 language: php
 
 php:
-  - 7.1
+  - '7.1'
 
 cache: yarn
-  
+
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --prefer-source
@@ -15,3 +15,10 @@ script:
 
 after_script:
   - php vendor/bin/coveralls -v
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r $TRAVIS_BUILD_DIR $SSH_USER:$DEPLOY_PASSWORD@$DEPLOY_HOST:$DEPLOY_PATH
+  on:
+    branch: master
