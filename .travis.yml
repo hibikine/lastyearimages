@@ -1,6 +1,6 @@
 language: php
 php:
-  - '7.1'
+  - '7.2'
 cache: yarn
 before_script:
   - curl -s http://getcomposer.org/installer | php
@@ -15,7 +15,7 @@ addons:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r $TRAVIS_BUILD_DIR $SSH_USER:$DEPLOY_PASSWORD@$DEPLOY_HOST:$DEPLOY_PATH
+  script: rsync -r $TRAVIS_BUILD_DIR $SSH_USER:$DEPLOY_PASSWORD@dragonoid.sakura.ne.jp:$DEPLOY_PATH
   on:
     branch: master
 before_deploy:
