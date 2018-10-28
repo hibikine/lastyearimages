@@ -15,7 +15,7 @@ addons:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r $TRAVIS_BUILD_DIR $SSH_USER@dragonoid.sakura.ne.jp:$DEPLOY_PATH
+  script: rsync -r $TRAVIS_BUILD_DIR/lastyearimages $SSH_USER@dragonoid.sakura.ne.jp:$DEPLOY_PATH
   on:
     branch: master
 before_deploy:
