@@ -19,10 +19,14 @@ jobs:
     steps:
       - checkout
 
+      - add_ssh_keys:
+          fingerprints:
+            - '3e:a4:42:43:6f:ae:12:37:7f:df:a6:ec:de:46:d2:ce'
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-{{ checksum "oekaki/composer.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
@@ -31,11 +35,11 @@ jobs:
       - save_cache:
           paths:
             - ./oekaki/vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+          key: v1-dependencies-{{ checksum "oekaki/composer.json" }}
 
       - deploy:
           name: Start master deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];j then
-              rsync -av ./oekaki/ ${USER_NAME}@${HOST_NAME}:${DEPLOY_PATH}
+              rsync -avn --delete ./oekaki/ ${USER_NAME}@${HOST_NAME}:${DEPLOY_PATH}
             fi
