@@ -4,3 +4,7 @@ yarn-error.log
 vendor/
 consts.php
 oekaki/dist/
+oekaki/index.html
+oekaki/src.*.js
+oekaki/src.*.map
+oekaki/favicon.*.ico

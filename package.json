@@ -5,12 +5,15 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --out-dir oekaki",
-    "build": "parcel build posted.html --out-dir oekaki && parcel build index.html --out-dir oekaki",
+    "build": "parcel build index.html --out-dir oekaki",
     "watch": "parcel watch index.html --out-dir oekaki",
     "docker": "docker-compose up -d",
     "lint": "eslint src/**"
   },
   "devDependencies": {
+    "@types/react": "^16.4.18",
+    "@types/react-color": "^2.13.6",
+    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -32,6 +35,9 @@
     "moment": "^2.20.1",
     "oauth": "^0.9.15",
     "popper.js": "^1.12.3",
+    "react": "^16.0.0",
+    "react-color": "^2.14.1",
+    "react-dom": "^16.6.1",
     "spectrum-colorpicker": "^1.8.0",
     "tinycolor2": "^1.4.1",
     "twitter-node-client": "^0.0.6"
