@@ -3,4 +3,4 @@ yarn-error.log
 .cache/
 vendor/
 consts.php
-oekaki/
+oekaki/dist/

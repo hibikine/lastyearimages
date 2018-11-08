@@ -1,8 +1,11 @@
-lastyearimages:
-  image: php:7.1-apache
-  ports:
-    - "80:80"
-  environment:
-    PROJECT_ENVIRONMENT: development
-  volumes:
-    - "./oekaki:/var/www/html/oekaki"
+version: "2"
+services:
+    app:
+        build: app
+        working_dir: "/var/www/html/oekaki"
+        ports:
+          - "80:8080"
+        environment:
+          PROJECT_ENVIRONMENT: development
+        volumes:
+          - "./oekaki:/var/www/html/oekaki"
