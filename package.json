@@ -7,7 +7,8 @@
     "start": "parcel index.html --out-dir oekaki",
     "build": "parcel build posted.html --out-dir oekaki && parcel build index.html --out-dir oekaki",
     "watch": "parcel watch index.html --out-dir oekaki",
-    "docker": "docker-compose up -d"
+    "docker": "docker-compose up -d",
+    "lint": "eslint src/**"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
@@ -39,7 +40,12 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,html,json,scss,css}": [
+    "*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{html,json,scss,css}": [
       "prettier --write",
       "git add"
     ]

@@ -48,6 +48,10 @@ jobs:
           command: yarn
 
       - run:
+          name: ESLint
+          command: yarn lint
+
+      - run:
           name: Build JavaScript
           command: yarn build
 
