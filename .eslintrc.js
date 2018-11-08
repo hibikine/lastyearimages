@@ -12,7 +12,7 @@ module.exports = {
     'no-bitwise': 'off',
     int32Hint: true,
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
-    'import/no-unresolved': [2, { ignore: ['^src'] }],
+    'import/no-unresolved': 'off',
   },
   globals: {
     window: true,
