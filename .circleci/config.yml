@@ -23,6 +23,10 @@ jobs:
           fingerprints:
             - '3e:a4:42:43:6f:ae:12:37:7f:df:a6:ec:de:46:d2:ce'
 
+      - run:
+          name: Start ssh-keyscan
+          command: ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+
       # Download and cache dependencies
       - restore_cache:
           keys:
