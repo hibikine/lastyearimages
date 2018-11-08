@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/php:7.1-browsers
+      - image: circleci/php:7.2-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -30,6 +30,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - restore_cache:
+          keys:
+            - v1-dependencies-yarn-{{ checksum "yarn.lock" }}
+            - v1-dependencies-yarn-
+
       - run:
           name: Install PHP dependencies
           command: cd oekaki; composer install -n --prefer-dist; cd ..
@@ -42,6 +47,11 @@ jobs:
           paths:
             - ./oekaki/vendor
           key: v1-dependencies-{{ checksum "oekaki/composer.json" }}
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-yarn-{{ checksum "yarn.lock" }}
 
       - deploy:
           name: Start master deploy
