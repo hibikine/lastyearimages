@@ -11,6 +11,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-bitwise': 'off',
     int32Hint: true,
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
   },
   globals: {
     window: true,
