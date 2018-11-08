@@ -30,7 +30,13 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: cd oekaki; composer install -n --prefer-dist; cd ..
+      - run:
+          name: Install PHP dependencies
+          command: cd oekaki; composer install -n --prefer-dist; cd ..
+
+      - run:
+          name: Build JS
+          command: yarn build
 
       - save_cache:
           paths:
@@ -40,6 +46,6 @@ jobs:
       - deploy:
           name: Start master deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ];j then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               rsync -avn --delete ./oekaki/ ${USER_NAME}@${HOST_NAME}:${DEPLOY_PATH}
             fi
