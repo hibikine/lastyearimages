@@ -40,7 +40,11 @@ jobs:
           command: cd oekaki; composer install -n --prefer-dist; cd ..
 
       - run:
-          name: Build JS
+          name: Install JavaScript dependencies
+          command: yarn
+
+      - run:
+          name: Build JavaScript
           command: yarn build
 
       - save_cache:
