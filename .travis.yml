@@ -4,12 +4,9 @@ php:
 cache: yarn
 before_script:
   - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --prefer-source
+  - cd oekaki; php composer.phar install --prefer-source; cd ..
 script:
-  - mkdir -p build/logs
-after_script:
-  - php vendor/bin/coveralls -v
-addons:
+  - yarn build
   ssh_known_hosts:
     - dragonoid.sakura.ne.jp
 deploy:
