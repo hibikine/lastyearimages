@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'airbnb',
+  extends: ['airbnb'],
   parser: 'typescript-eslint-parser',
   parserOptions: {
     jsx: true,
@@ -12,8 +12,7 @@ module.exports = {
     'no-bitwise': 'off',
     int32Hint: true,
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
-    'import/no-unresolved': 'off',
-    'import/extensions': 'off',
+    'import/extensions': ['.js', 'jsx', '.json', '.ts', '.tsx'],
   },
   globals: {
     window: true,
@@ -22,5 +21,12 @@ module.exports = {
     gtag: true,
     Cookies: true,
     fetch: true,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };
