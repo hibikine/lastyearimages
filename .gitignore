@@ -1,10 +1,10 @@
 node_modules/
 yarn-error.log
 .cache/
-vendor/
 consts.php
-oekaki/dist/
-oekaki/index.html
-oekaki/src.*.js
-oekaki/src.*.map
-oekaki/favicon.*.ico
+oekaki/
+!oekaki/*.php
+oekaki/vendor/
+!oekaki/composer.json
+!oekaki/comopser.lock
+!oekaki/.htaccess
