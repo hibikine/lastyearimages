@@ -2,10 +2,7 @@ version: '2'
 services:
   app:
     build: app
-    working_dir: '/var/www/html/oekaki'
     ports:
-      - '80:8081'
-    environment:
-      PROJECT_ENVIRONMENT: development
+      - '80:80'
     volumes:
       - './oekaki:/var/www/html/oekaki'
