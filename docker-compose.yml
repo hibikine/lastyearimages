@@ -5,4 +5,4 @@ services:
     ports:
       - '80:80'
     volumes:
-      - './oekaki:/var/www/html/oekaki'
+      - './oekaki:/var/www/html'
