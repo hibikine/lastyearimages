@@ -60,6 +60,7 @@ const ImageView = ({ color, displayName, fontLoaded }: Props) => {
           x={0}
           y={70}
         />
+
         {new Array(4).fill(0).map((_, i) => (
           <Rect
             y={headerHeight + ((height - headerHeight - lineWidth) / 3) * i}
@@ -87,6 +88,24 @@ const ImageView = ({ color, displayName, fontLoaded }: Props) => {
             width={innerLineWidth}
             fill={color}
             key={i}
+          />
+        ))}
+        {new Array(12).fill(0).map((_, i) => (
+          <Text
+            key={i}
+            fontSize={40}
+            align="center"
+            verticalAlign="top"
+            text={`${i + 1}月`}
+            x={lineWidth + ((width - lineWidth * 2) / 4) * (i % 4)}
+            y={
+              headerHeight +
+              ((height - headerHeight - lineWidth) / 3) * Math.floor(i / 4) +
+              14
+            }
+            width={(width - lineWidth * 2) / 4}
+            stroke="#ffffff"
+            fill="#ffffff"
           />
         ))}
       </Layer>
