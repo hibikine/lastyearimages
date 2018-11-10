@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "jsx": "react",
+    "lib": ["es2015", "dom"],
+    "downlevelIteration": true,
     "typeRoots": ["./node_modules/@types", "src/types"]
   }
 }
