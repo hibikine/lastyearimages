@@ -2,9 +2,10 @@ import * as React from 'react';
 import styled from 'react-emotion';
 import roundedMplusBold from './rounded-mplus';
 
+export const headerHeight = '60px';
 const NavBar = styled('div')`
   color: #fafafa;
-  height: 60px;
+  height: ${headerHeight};
   width: 100vw;
   background-color: #555;
   display: flex;

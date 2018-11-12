@@ -8,3 +8,4 @@ oekaki/vendor/
 !oekaki/composer.json
 !oekaki/comopser.lock
 !oekaki/.htaccess
+!oekaki/.env.example
