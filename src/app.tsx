@@ -7,13 +7,14 @@ import produce from 'immer';
 import bigInt from 'big-integer';
 import ImageView from './image-view';
 import Header, { headerHeight } from './header';
-import ImagePicker from './image-picker';
 import LoginButton from './login-button';
+import ImagePicker from './image-picker';
 import { isLoggedIn, formatTwitterDate } from './utilities';
 
 const thresholdTime = DateTime.local()
   .minus({ months: 11 })
   .startOf('month');
+
 const rebootCss = reboot({});
 // eslint-disable-next-line
 injectGlobal`
@@ -22,12 +23,13 @@ html, body {
   overflow: hidden;
 }
 `;
+const Div = styled('div')``;
 const Main = styled('main')`
   display: flex;
   flex-direction: row;
 `;
 const Left = styled('div')`
-  max-height: 100vh;
+  height: calc(100vh - ${headerHeight});
 `;
 const Right = styled('div')`
   height: calc(100vh - ${headerHeight});

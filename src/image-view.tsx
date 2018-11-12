@@ -60,7 +60,6 @@ const ImageView = ({ color, displayName, fontLoaded }: Props) => {
           x={0}
           y={70}
         />
-
         {new Array(4).fill(0).map((_, i) => (
           <Rect
             y={headerHeight + ((height - headerHeight - lineWidth) / 3) * i}
