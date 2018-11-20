@@ -23,7 +23,6 @@ html, body {
   overflow: hidden;
 }
 `;
-const Div = styled('div')``;
 const Main = styled('main')`
   display: flex;
   flex-direction: row;
@@ -159,7 +158,7 @@ class App extends React.Component<{}, State> {
             </TopItems>
             <TwitterImageWrapper loggedIn={loggedIn}>
               {twitterImages.map((img, i) => (
-                <MonthWrapper key={img[0]}>
+                <MonthWrapper key={i.toString()}>
                   <Month loggedIn={loggedIn}>{i + 1}月</Month>
                   <ImagePicker images={img} />
                 </MonthWrapper>

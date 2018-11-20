@@ -21,6 +21,11 @@ const StyledDropzone = styled(Dropzone)`
   border-radius: 4px;
   margin: 4px;
   padding: 20px 10px;
+  position: static !important;
+  & > input {
+    width: ${imageSize}px;
+    height: ${imageSize}px;
+  }
 `;
 const ImageList = styled('div')`
   display: flex;
@@ -48,31 +53,39 @@ const Img = styled('div')`
 export interface Props {
   images: string[];
 }
-const ImagePicker = ({ images }: Props) => (
-  <DropzoneWrapper>
-    <ImageList>
-      <StyledDropzone>
-        <DropzoneText>
-          クリックして
-          <br />
-          アップロード
-        </DropzoneText>
-        <DropzoneOrText>または</DropzoneOrText>
-        <DropzoneText>
-          画像を
-          <br />
-          ドラッグアンド
-          <br />
-          ドロップ
-        </DropzoneText>
-      </StyledDropzone>
-      {images.map(i => (
-        <Img src={i} key={i}>
-          &nbsp;
-        </Img>
-      ))}
-    </ImageList>
-  </DropzoneWrapper>
-);
+class ImagePicker extends React.Component<Props> {
+  onDrop = (acceptedFiles: File[]) => {
+    console.log(acceptedFiles);
+  };
+  render() {
+    const { images } = this.props;
+    return (
+      <DropzoneWrapper>
+        <ImageList>
+          <StyledDropzone onDrop={this.onDrop} accept=".png,.jpg,.jpeg">
+            <DropzoneText>
+              クリックして
+              <br />
+              アップロード
+            </DropzoneText>
+            <DropzoneOrText>または</DropzoneOrText>
+            <DropzoneText>
+              画像を
+              <br />
+              ドラッグアンド
+              <br />
+              ドロップ
+            </DropzoneText>
+          </StyledDropzone>
+          {images.map(i => (
+            <Img src={i} key={i}>
+              &nbsp;
+            </Img>
+          ))}
+        </ImageList>
+      </DropzoneWrapper>
+    );
+  }
+}
 
 export default ImagePicker;
