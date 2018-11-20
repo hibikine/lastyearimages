@@ -78,7 +78,7 @@ interface Status {
   created_at: string;
   id: number;
   id_str: string;
-  entities: {
+  extended_entities: {
     media: Medium[];
   };
 }
@@ -110,10 +110,11 @@ class App extends React.Component<{}, State> {
       if (date < thresholdTime) {
         return;
       }
+      console.log(status);
       this.setState(state => ({
         twitterImages: produce(state.twitterImages, imgs => {
           imgs[date.month - 1].push(
-            ...status.entities.media
+            ...status.extended_entities.media
               .filter(m => m.type === 'photo')
               .map(m => `${m.media_url_https}`)
           );
