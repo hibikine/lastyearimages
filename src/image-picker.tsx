@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'react-emotion';
 import Dropzone from 'react-dropzone';
+import { read } from 'fs';
 
 const imageSize = 150;
 const DropzoneWrapper = styled('div')`
@@ -22,6 +23,9 @@ const StyledDropzone = styled(Dropzone)`
   margin: 4px;
   padding: 20px 10px;
   position: static !important;
+  ${({ img }: { img?: string }) =>
+    (img == null ? '' : `background-image: url("${img}");`)}
+  background-size: cover;
   & > input {
     width: ${imageSize}px;
     height: ${imageSize}px;
@@ -51,32 +55,62 @@ const Img = styled('div')`
   background-size: cover;
 `;
 export interface Props {
+  setImage: (image: string) => void;
   images: string[];
 }
-class ImagePicker extends React.Component<Props> {
-  onDrop = (acceptedFiles: File[]) => {
+interface State {
+  dropedImage: null | string;
+}
+class ImagePicker extends React.Component<Props, State> {
+  state: State = { dropedImage: null };
+  onDrop = async (acceptedFiles: File[]) => {
     console.log(acceptedFiles);
+    if (acceptedFiles.length === 0) {
+      return;
+    }
+    const f: File = acceptedFiles[0];
+    const r = new FileReader();
+    const onloaded = new Promise<string>(resolve => {
+      r.onloadend = () => {
+        resolve(r.result as string);
+      };
+    });
+    r.readAsDataURL(f);
+    this.setState({ dropedImage: await onloaded });
+
+    const { setImage } = this.props;
+    setImage(await onloaded);
   };
   render() {
     const { images } = this.props;
+    const { dropedImage } = this.state;
     return (
       <DropzoneWrapper>
         <ImageList>
-          <StyledDropzone onDrop={this.onDrop} accept=".png,.jpg,.jpeg">
-            <DropzoneText>
-              クリックして
-              <br />
-              アップロード
-            </DropzoneText>
-            <DropzoneOrText>または</DropzoneOrText>
-            <DropzoneText>
-              画像を
-              <br />
-              ドラッグアンド
-              <br />
-              ドロップ
-            </DropzoneText>
+          <StyledDropzone
+            img={dropedImage == null ? undefined : dropedImage}
+            onDrop={this.onDrop}
+            accept=".png,.jpg,.jpeg"
+          >
+            {dropedImage == null && (
+              <>
+                <DropzoneText>
+                  クリックして
+                  <br />
+                  アップロード
+                </DropzoneText>
+                <DropzoneOrText>または</DropzoneOrText>
+                <DropzoneText>
+                  画像を
+                  <br />
+                  ドラッグアンド
+                  <br />
+                  ドロップ
+                </DropzoneText>
+              </>
+            )}
           </StyledDropzone>
+
           {images.map(i => (
             <Img src={i} key={i}>
               &nbsp;

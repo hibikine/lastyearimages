@@ -1,6 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import { Stage, Text, Layer, Rect } from 'react-konva';
+import {
+  Stage,
+  Text,
+  Layer,
+  Rect,
+  Sprite,
+  Image as RKImage,
+} from 'react-konva';
+import { withState, mapProps, lifecycle } from 'recompose';
 import styled, { css } from 'react-emotion';
 import base from '../img/base.png';
 import roundedMplusBold, { onLoaded, isLoaded } from './rounded-mplus';
@@ -8,7 +16,7 @@ import { mq } from './style';
 
 export interface Props {
   displayName: string;
-  images: (string | null)[];
+  images: Array<HTMLImageElement | null>;
   fontLoaded: boolean;
   color: string;
 }
@@ -37,7 +45,10 @@ const lineWidth = 6;
 const innerLineWidth = 3;
 baseImage.src = base;
 
-const ImageView = ({ color, displayName, fontLoaded }: Props) => {
+const ImageView = ({
+  images, color, displayName, fontLoaded,
+}: Props) => {
+  console.log(images);
   if (!fontLoaded) {
     return null;
   }
@@ -60,6 +71,7 @@ const ImageView = ({ color, displayName, fontLoaded }: Props) => {
           x={0}
           y={70}
         />
+        {images.map((img, i) => img !== null && <RKImage key={i} image={img} />)}
         {new Array(4).fill(0).map((_, i) => (
           <Rect
             y={headerHeight + ((height - headerHeight - lineWidth) / 3) * i}
@@ -112,6 +124,42 @@ const ImageView = ({ color, displayName, fontLoaded }: Props) => {
   );
 };
 ImageView.defaultProps = { displayName: '', images: new Array(12).fill(null) };
+
+const StringImageView = withState(
+  'convertedImages',
+  'setConvertedImages',
+  new Array(12).fill(null) as Array<HTMLImageElement | null>,
+)(lifecycle<
+    {
+      images: Array<string | null>;
+      convertedImages: Array<HTMLImageElement>;
+      setConvertedImages:(imgs: Array<HTMLImageElement>) => void;
+        },
+    {},
+    {}
+        >({
+          async componentDidUpdate(prevProps) {
+            const { images, convertedImages, setConvertedImages } = this.props;
+            const prevImages = prevProps.images;
+            const nextConvertedImages = [...convertedImages];
+            const waits: Promise<any>[] = [];
+            for (let i = 0; i < images.length; i += 1) {
+              if (images[i] !== prevImages[i]) {
+                nextConvertedImages[i] = new Image();
+                nextConvertedImages[i].src = images[i];
+                waits.push(new Promise((r) => {
+                  nextConvertedImages[i].onloadend = r;
+                }));
+              }
+            }
+            await Promise.all(waits);
+            setConvertedImages(nextConvertedImages);
+          },
+        })(mapProps((props) => {
+          console.log('a', props);
+          return { ...props, images: props.convertedImages };
+        })(ImageView)));
+
 class IsFontLoaded extends React.Component<Omit<Props, 'fontLoaded'>> {
   constructor(props) {
     super(props);
@@ -126,7 +174,7 @@ class IsFontLoaded extends React.Component<Omit<Props, 'fontLoaded'>> {
   };
   render() {
     const { loaded } = this.state;
-    return <ImageView {...this.props} fontLoaded={loaded} />;
+    return <StringImageView {...this.props} fontLoaded={loaded} />;
   }
 }
 export default IsFontLoaded;

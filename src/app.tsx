@@ -98,6 +98,12 @@ class App extends React.Component<{}, State> {
     twitterImages: new Array(12).fill(0).map(_ => []),
     loggedIn: isLoggedIn(),
   };
+  setImage = (month: number) => (image: string) => {
+    const { images } = this.state;
+    const newImages = [...images];
+    newImages[month] = image;
+    this.setState({ images: newImages });
+  };
   fetchTweets = async (max_id: string | null = null) => {
     const res = await fetch(
       `get-image.php${max_id === null ? '' : `?max_id=${max_id}`}`
@@ -161,7 +167,7 @@ class App extends React.Component<{}, State> {
               {twitterImages.map((img, i) => (
                 <MonthWrapper key={i.toString()}>
                   <Month loggedIn={loggedIn}>{i + 1}月</Month>
-                  <ImagePicker images={img} />
+                  <ImagePicker images={img} setImage={this.setImage(i)} />
                 </MonthWrapper>
               ))}
             </TwitterImageWrapper>
