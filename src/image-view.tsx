@@ -1,18 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import {
-  Stage,
-  Text,
-  Layer,
-  Rect,
-  Sprite,
-  Image as RKImage,
-} from 'react-konva';
-import { withState, mapProps, lifecycle } from 'recompose';
+import { Stage, Text, Layer, Rect, Image as RKImage, Group } from 'react-konva';
 import styled, { css } from 'react-emotion';
 import base from '../img/base.png';
 import roundedMplusBold, { onLoaded, isLoaded } from './rounded-mplus';
 import { mq } from './style';
+import calcFillScale from './calcScale';
 
 export interface Props {
   displayName: string;
@@ -43,12 +36,19 @@ const headerHeight = 140;
 const monthHeaderSize = 68;
 const lineWidth = 6;
 const innerLineWidth = 3;
+const imageWidth = (width - lineWidth * 2) / 4;
+const imageInnerWidth = imageWidth;
+const imageHeight = (height - headerHeight - lineWidth) / 3;
+const imageInnerHeight = imageHeight - monthHeaderSize;
+const calcFillScaleBySize = calcFillScale(imageInnerWidth, imageInnerHeight);
 baseImage.src = base;
 
+interface State {
+  positions: (number | null)[];
+}
 const ImageView = ({
   images, color, displayName, fontLoaded,
 }: Props) => {
-  console.log(images);
   if (!fontLoaded) {
     return null;
   }
@@ -71,10 +71,31 @@ const ImageView = ({
           x={0}
           y={70}
         />
-        {images.map((img, i) => img !== null && <RKImage key={i} image={img} />)}
+        {images.map((img, i) =>
+            img !== null && (
+              <Group
+                clipFunc={(ctx) => {
+                  ctx.rect(0, 0, imageInnerWidth, imageInnerHeight);
+                }}
+                x={lineWidth + imageWidth * (i % 4)}
+                y={
+                  headerHeight +
+                  monthHeaderSize +
+                  imageHeight * Math.floor(i / 4)
+                }
+                key={i}
+              >
+                <RKImage
+                  key={i}
+                  image={img}
+                  scaleX={calcFillScaleBySize(img)}
+                  scaleY={calcFillScaleBySize(img)}
+                />
+              </Group>
+            ))}
         {new Array(4).fill(0).map((_, i) => (
           <Rect
-            y={headerHeight + ((height - headerHeight - lineWidth) / 3) * i}
+            y={headerHeight + imageHeight * i}
             height={monthHeaderSize}
             width={width}
             fill={color}
@@ -93,7 +114,7 @@ const ImageView = ({
         ))}
         {new Array(3).fill(0).map((_, i) => (
           <Rect
-            x={lineWidth + ((width - lineWidth * 2) / 4) * (i + 1)}
+            x={lineWidth + imageWidth * (i + 1)}
             y={headerHeight}
             height={height - headerHeight}
             width={innerLineWidth}
@@ -125,41 +146,6 @@ const ImageView = ({
 };
 ImageView.defaultProps = { displayName: '', images: new Array(12).fill(null) };
 
-const StringImageView = withState(
-  'convertedImages',
-  'setConvertedImages',
-  new Array(12).fill(null) as Array<HTMLImageElement | null>,
-)(lifecycle<
-    {
-      images: Array<string | null>;
-      convertedImages: Array<HTMLImageElement>;
-      setConvertedImages:(imgs: Array<HTMLImageElement>) => void;
-        },
-    {},
-    {}
-        >({
-          async componentDidUpdate(prevProps) {
-            const { images, convertedImages, setConvertedImages } = this.props;
-            const prevImages = prevProps.images;
-            const nextConvertedImages = [...convertedImages];
-            const waits: Promise<any>[] = [];
-            for (let i = 0; i < images.length; i += 1) {
-              if (images[i] !== prevImages[i]) {
-                nextConvertedImages[i] = new Image();
-                nextConvertedImages[i].src = images[i];
-                waits.push(new Promise((r) => {
-                  nextConvertedImages[i].onloadend = r;
-                }));
-              }
-            }
-            await Promise.all(waits);
-            setConvertedImages(nextConvertedImages);
-          },
-        })(mapProps((props) => {
-          console.log('a', props);
-          return { ...props, images: props.convertedImages };
-        })(ImageView)));
-
 class IsFontLoaded extends React.Component<Omit<Props, 'fontLoaded'>> {
   constructor(props) {
     super(props);
@@ -174,7 +160,7 @@ class IsFontLoaded extends React.Component<Omit<Props, 'fontLoaded'>> {
   };
   render() {
     const { loaded } = this.state;
-    return <StringImageView {...this.props} fontLoaded={loaded} />;
+    return <ImageView {...this.props} fontLoaded={loaded} />;
   }
 }
 export default IsFontLoaded;

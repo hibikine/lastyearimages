@@ -4,3 +4,4 @@ declare module '*.eot';
 declare module '*.ttf';
 declare module '*.png';
 type Omit <T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+declare module 'big-integer';

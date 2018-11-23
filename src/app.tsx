@@ -4,12 +4,15 @@ import { DateTime } from 'luxon';
 import styled, { injectGlobal } from 'react-emotion';
 import reboot from 'styled-reboot';
 import produce from 'immer';
+import { withState } from 'recompose';
 import bigInt from 'big-integer';
+import TextField from '@material-ui/core/TextField';
 import ImageView from './image-view';
 import Header, { headerHeight } from './header';
 import LoginButton from './login-button';
 import ImagePicker from './image-picker';
 import { isLoggedIn, formatTwitterDate } from './utilities';
+import TweetButton from './TweetButton';
 
 const thresholdTime = DateTime.local()
   .minus({ months: 11 })
@@ -63,9 +66,17 @@ const LoginText = styled('p')``;
 const MonthWrapper = styled('div')`
   margin-bottom: 10px;
 `;
+const Tweet = styled(TextField)`
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+const Comment = styled(TextField)`
+  display: block;
+`;
 interface State {
   color: string;
-  images: (string | null)[];
+  images: (HTMLImageElement | null)[];
   twitterImages: string[][];
   loggedIn: boolean;
 }
@@ -82,8 +93,14 @@ interface Status {
     media: Medium[];
   };
 }
+interface Props {
+  displayName: string;
+  setDisplayName: (n: string) => void;
+  comment: string;
+  setComment: (c: string) => void;
+}
 /* eslint-enable camelcase */
-class App extends React.Component<{}, State> {
+class App extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     const { loggedIn } = this.state;
@@ -98,11 +115,17 @@ class App extends React.Component<{}, State> {
     twitterImages: new Array(12).fill(0).map(_ => []),
     loggedIn: isLoggedIn(),
   };
-  setImage = (month: number) => (image: string) => {
-    const { images } = this.state;
-    const newImages = [...images];
-    newImages[month] = image;
-    this.setState({ images: newImages });
+  setImage = (month: number) => async (image: string) => {
+    const convertedImage = await new Promise<HTMLImageElement>(resolve => {
+      const i = new Image();
+      i.src = image;
+      i.onloadend = () => resolve(i);
+    });
+    this.setState(state => {
+      const newImages = [...state.images];
+      newImages[month] = convertedImage;
+      return { images: newImages };
+    });
   };
   fetchTweets = async (max_id: string | null = null) => {
     const res = await fetch(
@@ -137,13 +160,16 @@ class App extends React.Component<{}, State> {
     const {
       images, color, twitterImages, loggedIn,
     } = this.state;
+    const {
+      displayName, setDisplayName, comment, setComment,
+    } = this.props;
     return (
       <div>
         <Header />
         <Main>
           <Left>
             <ImageView
-              displayName="Hibikine Kage"
+              displayName={displayName}
               color={color}
               images={images}
             />
@@ -171,10 +197,41 @@ class App extends React.Component<{}, State> {
                 </MonthWrapper>
               ))}
             </TwitterImageWrapper>
+            <div>
+              <TextField
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+                label="お名前"
+              />
+            </div>
+            <Comment
+              label="コメント"
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              multiline
+            />
+            <Tweet
+              variant="outlined"
+              multiline
+              label="ツイート内容"
+              value={`${
+                displayName === '' ? '' : `${displayName}の`
+              }お絵かき1年録！
+#お絵かき1年録ジェネレーター${
+                comment === ''
+                  ? ''
+                  : `
+
+${comment}`
+              }`}
+            />
+            <TweetButton />
           </Right>
         </Main>
       </div>
     );
   }
 }
-export default App;
+const nameState = withState('displayName', 'setDisplayName', '');
+const commentState = withState('comment', 'setComment', '');
+export default commentState(nameState(App));
