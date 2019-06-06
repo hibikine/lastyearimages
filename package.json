@@ -14,7 +14,7 @@
     "@types/js-cookie": "^2.2.0",
     "@types/luxon": "^1.4.1",
     "@types/react": "^16.4.18",
-    "@types/react-color": "^2.13.6",
+    "@types/react-color": "^3.0.1",
     "@types/react-dropzone": "^4.2.2",
     "@types/recompose": "^0.27.0",
     "@types/webfontloader": "^1.6.29",
